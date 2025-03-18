@@ -16,6 +16,90 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/docs',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/tutorials',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/webinars',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/terms',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/about',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/careers',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/privacy',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/contact',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/cookies',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/partners',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/accessibility',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/login',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/signup',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/register',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/dashboard',
+        destination: '/',
+        permanent: false,
+      },
+    ]
+  },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
