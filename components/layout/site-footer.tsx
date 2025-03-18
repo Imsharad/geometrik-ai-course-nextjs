@@ -47,28 +47,28 @@ export function SiteFooter() {
     {
       title: "Resources",
       links: [
-        { label: "Blog", href: "/blog" },
-        { label: "Documentation", href: "/docs" },
-        { label: "Tutorials", href: "/tutorials" },
-        { label: "Webinars", href: "/webinars" },
+        { label: "Blog", href: "#" },
+        { label: "Documentation", href: "#" },
+        { label: "Tutorials", href: "#" },
+        { label: "Webinars", href: "#" },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "About Us", href: "/about" },
-        { label: "Careers", href: "/careers" },
-        { label: "Contact", href: "/contact" },
-        { label: "Partners", href: "/partners" },
+        { label: "About Us", href: "#" },
+        { label: "Careers", href: "#" },
+        { label: "Contact", href: "#" },
+        { label: "Partners", href: "#" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { label: "Terms of Service", href: "/terms" },
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Cookie Policy", href: "/cookies" },
-        { label: "Accessibility", href: "/accessibility" },
+        { label: "Terms of Service", href: "#" },
+        { label: "Privacy Policy", href: "#" },
+        { label: "Cookie Policy", href: "#" },
+        { label: "Accessibility", href: "#" },
       ],
     },
   ]
