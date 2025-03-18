@@ -1,0 +1,43 @@
+/* This file is used for debugging purposes. Add styles here to highlight elements or sections. */
+
+body {
+  /* Example: Highlight all elements with a red border */
+  /* border: 1px solid red !important; */
+}
+
+/* Example: Highlight specific sections */
+/*
+#hero {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+#curriculum {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+#instructor {
+  background-color: rgba(0, 0, 255, 0.1);
+}
+
+#pricing {
+  background-color: rgba(255, 255, 0, 0.1);
+}
+
+#faq {
+  background-color: rgba(255, 0, 255, 0.1);
+}
+
+#enroll {
+  background-color: rgba(0, 255, 255, 0.1);
+}
+*/
+
+/* Force the instructor section to be visible */
+#instructor {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
