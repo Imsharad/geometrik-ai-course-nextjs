@@ -38,105 +38,141 @@ const motion = originalMotion;
 
 // Custom fix - ensures measurement functions are properly initialized
 if (typeof window !== "undefined") {
-  // Fix for positionalValues is not a function error
+  // Directly override the issue with a monkey patch
   try {
-    const ensureFunction = (obj: any, key: string) => {
-      if (!obj) return;
-      
-      // If the property doesn't exist, create it
-      if (obj[key] === undefined) {
-        obj[key] = () => 0;
-        console.warn(`Created missing function for ${key} in framer-motion`);
-        return;
-      }
-      
-      // If it exists but is not a function, replace it
-      if (typeof obj[key] !== 'function') {
-        const originalValue = obj[key];
-        obj[key] = () => {
-          // Return the original value if it's a number, otherwise 0
-          return typeof originalValue === 'number' ? originalValue : 0;
-        };
-        console.warn(`Fixed ${key} in framer-motion - was not a function`);
-      }
-    };
-
-    // Try to access and patch the problematic module
-    setTimeout(() => {
-      // This runs after initial load to ensure webpack modules are available
-      const allModules = (window as any).__webpack_modules__ || {};
-      
-      // First pass - find the positionalValues module
-      let positionalValuesModule: any = null;
-      let positionalValues: PositionalValues | null = null;
-      
-      Object.keys(allModules).forEach(moduleId => {
-        const mod = allModules[moduleId];
-        // Check if this module has positionalValues
-        if (mod && mod.exports && mod.exports.positionalValues) {
-          positionalValuesModule = mod;
-          positionalValues = mod.exports.positionalValues as PositionalValues;
-        }
-      });
-      
-      // If we found the module, patch all properties
-      if (positionalValues) {
-        console.log("Found positionalValues module, applying fix");
-        
-        // Make sure all transformable properties are functions
-        const transformableProps = [
-          "x", "y", "z", "width", "height", "top", "left", "right", "bottom",
-          "transform", "transformPerspective", "opacity", "rotate", "rotateX", "rotateY", 
-          "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "skew", "skewX", "skewY"
-        ];
-        
-        // Ensure all known transform properties exist and are functions
-        transformableProps.forEach(prop => {
-          ensureFunction(positionalValues, prop);
-        });
-        
-        // Also ensure any existing properties are functions
-        if (positionalValues) {
-          Object.keys(positionalValues).forEach(propName => {
-            ensureFunction(positionalValues, propName);
+    // Add a hook to intercept webpack modules as they're loaded
+    const originalDefine = (window as any).__webpack_require__.d;
+    if (originalDefine) {
+      (window as any).__webpack_require__.d = function(exports: any, definition: any) {
+        // Check if this might be the unit conversion module
+        if (definition && definition.positionalValues) {
+          console.log("Found positionalValues in module definition, applying fix");
+          
+          // Create a safe version of positionalValues where all properties are functions
+          const safePositionalValues: PositionalValues = {};
+          const defaultFn = () => 0;
+          
+          // Common positional properties that should be functions
+          const propertiesToFix = [
+            "x", "y", "z", "top", "left", "right", "bottom", "width", "height",
+            "rotate", "rotateX", "rotateY", "rotateZ", 
+            "scale", "scaleX", "scaleY", "scaleZ",
+            "skew", "skewX", "skewY",
+            "transformPerspective", "transform", "translate", "translateX", "translateY", "translateZ"
+          ];
+          
+          // Pre-populate with safe functions for common properties
+          propertiesToFix.forEach(prop => {
+            safePositionalValues[prop] = defaultFn;
           });
+          
+          // Override the original definition
+          definition.positionalValues = {
+            ...definition.positionalValues,
+            ...safePositionalValues,
+            // Ensure the getter always returns a function
+            get: function(target: any, key: string) {
+              const value = this[key] || defaultFn;
+              return typeof value === 'function' ? value : defaultFn;
+            }
+          };
+          
+          // Ensure all properties are functions, even ones we didn't anticipate
+          const handler = {
+            get: function(target: any, prop: string) {
+              if (typeof target[prop] === 'function') {
+                return target[prop];
+              }
+              console.warn(`Fixed missing function for property: ${prop}`);
+              return defaultFn;
+            }
+          };
+          
+          // Apply the proxy to make every property access safe
+          definition.positionalValues = new Proxy(definition.positionalValues, handler);
         }
-      } else {
-        console.warn("Could not find positionalValues module to patch");
-      }
-    }, 100); // Slightly longer timeout to ensure modules are loaded
-  } catch (e) {
-    console.error("Failed to patch framer-motion positionalValues:", e);
-  }
-
-  // Fix the measure function
-  try {
-    const originalMeasure = (window as any).__framer_importMeasure;
-    if (originalMeasure) {
-      (window as any).__framer_importMeasure = () => {
-        const measure = originalMeasure();
-        // Ensure measure functions are properly initialized and callable
-        const safeWrapper = (fn: any) => {
-          return typeof fn === 'function' ? fn : () => {};
-        };
         
-        // Add safety wrapper to measureInitialState
-        const originalMeasureInitialState = measure.measureInitialState;
-        measure.measureInitialState = function(...args: any[]) {
+        // Call the original define function
+        return originalDefine.call(this, exports, definition);
+      };
+    }
+    
+    // Also patch the module directly if it's already been loaded
+    setTimeout(() => {
+      console.log("Running delayed fix for positionalValues");
+      if ((window as any).__webpack_modules__) {
+        Object.values((window as any).__webpack_modules__).forEach((module: any) => {
           try {
-            return originalMeasureInitialState.apply(this, args);
+            if (module && module.exports && module.exports.positionalValues) {
+              console.log("Found positionalValues module, applying fix");
+              
+              // Safe default function
+              const defaultFn = () => 0;
+              
+              // Create a proxy to ensure all property accesses return a function
+              const proxyHandler = {
+                get: function(target: any, prop: string) {
+                  if (prop === 'get') {
+                    return function(target: any, key: string) {
+                      return defaultFn;
+                    };
+                  }
+                  
+                  if (typeof target[prop] === 'function') {
+                    return target[prop];
+                  }
+                  
+                  // For any non-function property, return our default function
+                  return defaultFn;
+                }
+              };
+              
+              // Apply the proxy
+              module.exports.positionalValues = new Proxy(
+                module.exports.positionalValues || {}, 
+                proxyHandler
+              );
+            }
           } catch (e) {
-            // Fallback to empty measurements if error occurs
-            console.warn("Fixed framer-motion measurement error:", e);
-            return {};
+            // Ignore errors for individual modules
+          }
+        });
+      }
+    }, 200);
+  } catch (e) {
+    console.error("Error setting up framer-motion fixes:", e);
+  }
+  
+  // Also patch any direct usage when the specific module is accessed
+  try {
+    let originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+    Object.getOwnPropertyDescriptor = function(obj: any, prop: string) {
+      const descriptor = originalGetOwnPropertyDescriptor.apply(this, [obj, prop]);
+      
+      // Look for the positionalValues
+      if (
+        prop === 'positionalValues' && 
+        descriptor && 
+        descriptor.value && 
+        typeof descriptor.value === 'object'
+      ) {
+        const defaultFn = () => 0;
+        
+        // Make sure all access to properties returns a function
+        const handler = {
+          get: function(target: any, prop: string) {
+            return typeof target[prop] === 'function' ? target[prop] : defaultFn;
           }
         };
         
-        return measure;
-      };
-    }
+        // Create a proxy that ensures all property access returns a function
+        descriptor.value = new Proxy(descriptor.value, handler);
+      }
+      
+      return descriptor;
+    };
   } catch (e) {
-    console.error("Failed to patch framer-motion measure function:", e);
+    console.error("Error patching Object.getOwnPropertyDescriptor:", e);
   }
 }
 
