@@ -7,30 +7,12 @@ export function HeaderActions() {
   return (
     <div className="flex items-center gap-4">
       <Button asChild variant="outline" className="hidden md:inline-flex">
-        <Link
-          href="#enroll"
-          onClick={(e) => {
-            e.preventDefault()
-            const enrollSection = document.getElementById("enroll")
-            if (enrollSection) {
-              enrollSection.scrollIntoView({ behavior: "smooth" })
-            }
-          }}
-        >
+        <Link href="/login">
           Log In
         </Link>
       </Button>
       <Button asChild className="hidden md:inline-flex">
-        <Link
-          href="#enroll"
-          onClick={(e) => {
-            e.preventDefault()
-            const enrollSection = document.getElementById("enroll")
-            if (enrollSection) {
-              enrollSection.scrollIntoView({ behavior: "smooth" })
-            }
-          }}
-        >
+        <Link href="/pricing">
           Enroll Now
         </Link>
       </Button>

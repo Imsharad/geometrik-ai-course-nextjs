@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -19,30 +19,6 @@ interface MobileMenuProps {
 
 export function MobileMenu({ items }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
-
-  // Update active section on scroll
-  useEffect(() => {
-    if (!isOpen) return
-
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100
-      const sections = document.querySelectorAll("section[id]")
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.offsetHeight
-        const sectionId = section.getAttribute("id")
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId || "")
-        }
-      })
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [isOpen])
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -69,17 +45,9 @@ export function MobileMenu({ items }: MobileMenuProps) {
                 key={item.href}
                 href={item.href}
                 className={`text-lg font-medium transition-colors hover:text-primary ${
-                  activeSection === item.href.replace("#", "") ? "text-primary" : ""
+                  item.isActive ? "text-primary" : ""
                 }`}
-                onClick={(e) => {
-                  const targetId = item.href.replace("#", "")
-                  const targetElement = document.getElementById(targetId)
-                  if (targetElement) {
-                    e.preventDefault()
-                    targetElement.scrollIntoView({ behavior: "smooth" })
-                    setIsOpen(false)
-                  }
-                }}
+                onClick={() => setIsOpen(false)}
               >
                 {item.title}
               </Link>
@@ -87,10 +55,10 @@ export function MobileMenu({ items }: MobileMenuProps) {
           </nav>
           <div className="grid gap-4">
             <Button asChild variant="outline" onClick={() => setIsOpen(false)}>
-              <Link href="#enroll">Log In</Link>
+              <Link href="/login">Log In</Link>
             </Button>
             <Button asChild onClick={() => setIsOpen(false)}>
-              <Link href="#enroll">Enroll Now</Link>
+              <Link href="/pricing">Enroll Now</Link>
             </Button>
           </div>
         </div>

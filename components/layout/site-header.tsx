@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { CourseLogo } from "@/components/course-logo"
 import { NavigationMenu } from "@/components/header/navigation-menu"
 import { MobileMenu } from "@/components/header/mobile-menu"
@@ -20,7 +21,7 @@ const navItems = [
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +35,7 @@ export function SiteHeader() {
   // Update navItems with active state based on current path
   const navItemsWithActive = navItems.map((item) => ({
     ...item,
-    isActive: typeof window !== "undefined" ? window.location.pathname === item.href : false,
+    isActive: pathname === item.href,
   }))
 
   return (

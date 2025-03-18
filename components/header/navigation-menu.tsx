@@ -36,34 +36,6 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
     }
   }, [hoveredIndex])
 
-  // Add scroll event listener to update active state based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY
-
-      // Get all section elements
-      const sections = document.querySelectorAll("section[id]")
-
-      // Determine which section is currently in view
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 100 // Offset for better UX
-        const sectionHeight = section.offsetHeight
-        const sectionId = section.getAttribute("id")
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          // Find the corresponding nav item and highlight it
-          const index = items.findIndex((item) => item.href === `#${sectionId}`)
-          if (index !== -1) {
-            setHoveredIndex(index)
-          }
-        }
-      })
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [items])
-
   return (
     <nav className="hidden md:flex items-center gap-6 relative">
       {/* Hover background effect */}
@@ -82,21 +54,14 @@ export function NavigationMenu({ items }: NavigationMenuProps) {
         <Link
           key={item.href}
           href={item.href}
-          ref={(el) => (itemsRef.current[index] = el)}
+          ref={(el) => {
+            itemsRef.current[index] = el;
+          }}
           className={`text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-md relative z-10 ${
             item.isActive ? "text-primary" : ""
           }`}
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
-          onClick={(e) => {
-            // Smooth scroll to the section
-            const targetId = item.href.replace("#", "")
-            const targetElement = document.getElementById(targetId)
-            if (targetElement) {
-              e.preventDefault()
-              targetElement.scrollIntoView({ behavior: "smooth" })
-            }
-          }}
         >
           {item.title}
         </Link>
