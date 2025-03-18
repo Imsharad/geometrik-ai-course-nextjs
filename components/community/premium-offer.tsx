@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView } from "@/app/fix-framer-motion"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Clock, ArrowRight, Sparkles, Users, BookOpen, Network } from "lucide-react"

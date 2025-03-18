@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useInView, AnimatePresence, useMotionValue, useTransform } from "framer-motion"
+import { motion, useInView, AnimatePresence, useMotionValue, useTransform } from "@/app/fix-framer-motion"
 import Image from "next/image"
 import { useTheme } from "next-themes"
 import { BadgeCheck, Building2, Briefcase, Users, TrendingUp, Star, Globe } from "lucide-react"

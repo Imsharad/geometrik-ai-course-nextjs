@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView } from "@/app/fix-framer-motion"
 import Image from "next/image"
 import { batchFetchLogos } from "../utils/logo-fetcher"
 
