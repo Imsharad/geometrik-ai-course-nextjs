@@ -21,6 +21,12 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  webpack: (config) => {
+    config.module = config.module || {};
+    config.module.rules = config.module.rules || [];
+    
+    return config;
+  }
 }
 
 mergeConfig(nextConfig, userConfig)

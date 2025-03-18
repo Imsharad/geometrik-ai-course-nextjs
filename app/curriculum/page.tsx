@@ -4,6 +4,10 @@ import { useState } from "react"
 import { ModuleCard } from "@/components/curriculum/module-card"
 import { SkillDevelopment } from "@/components/curriculum/skill-development"
 import { LearningOutcomes } from "@/components/curriculum/learning-outcomes"
+import { SiteHeader } from "@/components/layout/site-header"
+import { SiteFooter } from "@/components/layout/site-footer"
+import { CurriculumSection } from "@/components/sections/curriculum-section"
+import { Analytics } from "@/components/utils/analytics"
 
 export default function CurriculumPage() {
   const [activeModule, setActiveModule] = useState<string | null>("foundations")
@@ -118,26 +122,25 @@ export default function CurriculumPage() {
   ]
 
   return (
-    <div className="container py-12 mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Course Curriculum</h1>
-
-      <div className="grid grid-cols-1 gap-8 mb-16">
-        {modules.map((module) => (
-          <ModuleCard
-            key={module.id}
-            {...module}
-            isActive={activeModule === module.id}
-            onToggle={() => setActiveModule(activeModule === module.id ? null : module.id)}
-            onContinue={() => console.log(`Continue learning ${module.id}`)}
-          />
-        ))}
+    <>
+      <Analytics />
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader />
+        <main className="flex-1">
+          <section className="py-12 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <h1 className="text-4xl font-bold mb-4">Course Curriculum</h1>
+              <p className="text-lg text-gray-600 max-w-3xl">
+                Our comprehensive curriculum is designed to take you from the basics to advanced AI techniques.
+                Learn practical skills that you can apply immediately in your projects.
+              </p>
+            </div>
+          </section>
+          <CurriculumSection />
+        </main>
+        <SiteFooter />
       </div>
-
-      <div className="grid md:grid-cols-2 gap-12 mt-16">
-        <SkillDevelopment />
-        <LearningOutcomes />
-      </div>
-    </div>
+    </>
   )
 }
 

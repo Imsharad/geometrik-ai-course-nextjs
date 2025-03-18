@@ -10,12 +10,12 @@ import { studentImages } from "@/components/student-images"
 
 // Update the navItems array to match the actual sections in the page
 const navItems = [
-  { title: "Curriculum", href: "#curriculum" },
-  { title: "Instructor", href: "#instructor" },
-  { title: "Community", href: "#community" },
-  { title: "Success Stories", href: "#success-stories" },
-  { title: "Pricing", href: "#pricing" },
-  { title: "FAQ", href: "#faq" },
+  { title: "Home", href: "/" },
+  { title: "Curriculum", href: "/curriculum" },
+  { title: "Instructor", href: "/instructor" },
+  { title: "Community", href: "/community" },
+  { title: "Pricing", href: "/pricing" },
+  { title: "FAQ", href: "/faq" },
 ]
 
 export function SiteHeader() {
@@ -25,30 +25,16 @@ export function SiteHeader() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
-
-      // Determine active section
-      const sections = document.querySelectorAll("section[id]")
-      const scrollPosition = window.scrollY + 100 // Add offset for better UX
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.offsetHeight
-        const sectionId = section.getAttribute("id")
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId || "")
-        }
-      })
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Update navItems with active state
+  // Update navItems with active state based on current path
   const navItemsWithActive = navItems.map((item) => ({
     ...item,
-    isActive: activeSection === item.href.replace("#", ""),
+    isActive: typeof window !== "undefined" ? window.location.pathname === item.href : false,
   }))
 
   return (
