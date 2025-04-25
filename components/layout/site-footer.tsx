@@ -37,48 +37,48 @@ export function SiteFooter() {
     {
       title: "Course",
       links: [
-        { label: "Curriculum", href: "#curriculum" },
-        { label: "Instructor", href: "#instructor" },
-        { label: "Community", href: "#community" },
-        { label: "Pricing", href: "#pricing" },
-        { label: "FAQ", href: "#faq" },
+        { label: "Curriculum", href: "/" },
+        { label: "Instructor", href: "/" },
+        { label: "Community", href: "/" },
+        { label: "Pricing", href: "/" },
+        { label: "FAQ", href: "/" },
       ],
     },
     {
       title: "Resources",
       links: [
-        { label: "Blog", href: "#" },
-        { label: "Documentation", href: "#" },
-        { label: "Tutorials", href: "#" },
-        { label: "Webinars", href: "#" },
+        { label: "Blog", href: "/" },
+        { label: "Documentation", href: "/" },
+        { label: "Tutorials", href: "/" },
+        { label: "Webinars", href: "/" },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "About Us", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Contact", href: "#" },
-        { label: "Partners", href: "#" },
+        { label: "About Us", href: "/" },
+        { label: "Careers", href: "/" },
+        { label: "Contact", href: "/" },
+        { label: "Partners", href: "/" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { label: "Terms of Service", href: "#" },
-        { label: "Privacy Policy", href: "#" },
-        { label: "Cookie Policy", href: "#" },
-        { label: "Accessibility", href: "#" },
+        { label: "Terms of Service", href: "/" },
+        { label: "Privacy Policy", href: "/" },
+        { label: "Cookie Policy", href: "/" },
+        { label: "Accessibility", href: "/" },
       ],
     },
   ]
 
   const socialLinks = [
-    { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com/geometrikai", label: "Twitter" },
-    { icon: <Linkedin className="h-5 w-5" />, href: "https://linkedin.com/company/geometrikai", label: "LinkedIn" },
-    { icon: <Github className="h-5 w-5" />, href: "https://github.com/geometrikai", label: "GitHub" },
-    { icon: <Youtube className="h-5 w-5" />, href: "https://youtube.com/geometrikai", label: "YouTube" },
-    { icon: <Instagram className="h-5 w-5" />, href: "https://instagram.com/geometrikai", label: "Instagram" },
+    { icon: <Twitter className="h-5 w-5" />, href: "/", label: "Twitter" },
+    { icon: <Linkedin className="h-5 w-5" />, href: "/", label: "LinkedIn" },
+    { icon: <Github className="h-5 w-5" />, href: "/", label: "GitHub" },
+    { icon: <Youtube className="h-5 w-5" />, href: "/", label: "YouTube" },
+    { icon: <Instagram className="h-5 w-5" />, href: "/", label: "Instagram" },
   ]
 
   return (
@@ -174,11 +174,11 @@ export function SiteFooter() {
           </a>
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
-            123 AI Avenue, San Francisco, CA 94107
+            609, Cambridge Street, San Francisco
           </div>
-          <a href="tel:+15551234567" className="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="tel:+917999024306" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Phone className="h-4 w-4" />
-            +1 (555) 123-4567
+            +91 7999 024306
           </a>
         </div>
         
