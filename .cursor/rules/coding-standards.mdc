@@ -1,5 +1,108 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Coding Standards
+
+This rule defines the coding standards and best practices for the Geometrik AI Course platform.
+
+## TypeScript Guidelines
+
+- Prefer explicit typing over implicit `any` types
+- Use interfaces for object shapes that represent entities or props
+- Use type aliases for unions, intersections, and utility types
+- Enable strict mode in TypeScript configuration
+
+## React Component Guidelines
+
+- Use functional components with hooks
+- Define clear prop interfaces with descriptive names
+- Use destructuring for props
+- Follow the naming convention of PascalCase for components
+- Export components as named exports unless they are the default export of their file
+
+### Example Component Structure
+
+```tsx
+// Button.tsx
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  className,
+  children,
+  ...props
+}: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'rounded-md font-medium transition-colors',
+        variant === 'primary' && 'bg-primary text-primary-foreground hover:bg-primary/90',
+        variant === 'secondary' && 'bg-secondary text-secondary-foreground hover:bg-secondary/90',
+        variant === 'outline' && 'border border-input bg-transparent hover:bg-accent hover:text-accent-foreground',
+        size === 'sm' && 'h-8 px-3 text-xs',
+        size === 'md' && 'h-10 px-4 text-sm',
+        size === 'lg' && 'h-12 px-6 text-base',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+## Next.js App Router Guidelines
+
+- Use server components by default, and client components only when necessary
+- Utilize layout.tsx for shared layouts
+- Use loading.tsx for loading states
+- Implement error.tsx for error handling
+- Follow the route segment config options convention
+
+## Styling Guidelines
+
+- Use Tailwind CSS utility classes for styling
+- Use `cn` utility function from `@/lib/utils` for conditional class names
+- Follow a consistent color scheme defined in tailwind.config.ts
+- Use CSS variables for theme values
+
+## File Organization
+
+- Group related components in subdirectories
+- Use index.ts files for clean exports
+- Keep files focused on a single responsibility
+- Use descriptive file names that reflect the component/function purpose
+
+## Import Order
+
+1. React and Next.js imports
+2. External library imports
+3. Internal absolute imports (using @/ prefix)
+4. Internal relative imports
+5. Type imports
+6. CSS/SCSS imports
+
+## Error Handling
+
+- Use try/catch blocks for async operations
+- Implement error boundaries for client components
+- Provide meaningful error messages
+- Log errors appropriately
+
+## Accessibility
+
+- Ensure all interactive elements are keyboard accessible
+- Use semantic HTML elements
+- Provide appropriate ARIA attributes when necessary
+- Maintain sufficient color contrast
+- Test with screen readers

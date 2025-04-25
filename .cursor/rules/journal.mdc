@@ -1,5 +1,57 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Development Journal
+
+This rule acts as a journal of important implementation details, decisions, and notes specific to this project.
+
+## Project Setup Notes
+
+- Next.js 15.1.0 with App Router was chosen for its strong server-side rendering capabilities
+- React 19 is used for the latest features and performance improvements
+- TypeScript provides type safety throughout the codebase
+- Tailwind CSS is used for utility-first styling
+- Radix UI components provide accessible UI primitives
+
+## Implementation Details
+
+### Component Library
+
+- Using a mix of Radix UI primitives and custom components
+- Components are styled with Tailwind CSS using the `cn` utility
+- Class-variance-authority is used for component variants
+
+### Styling System
+
+- Tailwind CSS with custom configuration in [tailwind.config.ts](mdc:tailwind.config.ts)
+- Dark mode support via next-themes
+- Custom color scheme defined in the tailwind config
+
+### Routing Structure
+
+- App Router with nested routes for different sections
+- Layout components for shared UI elements
+- Server components for data fetching where possible
+
+## Known Workarounds
+
+- Framer Motion alpha version (12.0.0-alpha.0) is used with specific configuration in [app/fix-framer-motion.tsx](mdc:app/fix-framer-motion.tsx)
+- See [app/fix-framer-errors-client.tsx](mdc:app/fix-framer-errors-client.tsx) for client-side fixes
+
+## Future Enhancements
+
+- Implement authentication system
+- Add data fetching layer (likely with SWR or React Query)
+- Enhance SEO with metadata
+- Implement analytics
+
+## References and Resources
+
+- [Next.js Documentation](mdc:https:/nextjs.org/docs)
+- [React Documentation](mdc:https:/react.dev)
+- [Tailwind CSS Documentation](mdc:https:/tailwindcss.com/docs)
+- [Radix UI Documentation](mdc:https:/www.radix-ui.com/docs/primitives/overview/introduction)
+
+*This journal should be updated regularly as the project evolves.*

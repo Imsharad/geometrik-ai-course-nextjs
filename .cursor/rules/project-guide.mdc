@@ -1,5 +1,56 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Project Structure Guide
+
+This rule provides guidance on the overall project structure for the Geometrik AI Course platform.
+
+## Directory Structure
+
+- `/app`: Next.js App Router pages and layouts following the conventions from Next.js 15.1.0
+  - Each subdirectory represents a route
+  - `layout.tsx` contains the shared layout for child routes
+  - `page.tsx` contains the main content for a route
+
+- `/components`: Reusable UI components
+  - General components at the root level
+  - Specific components grouped in subdirectories
+
+- `/lib`: Utility functions and shared logic
+  - `utils.ts`: General utility functions
+  - Feature-specific utilities in separate files
+
+- `/hooks`: Custom React hooks
+  - Each hook in a separate file
+  - Clear naming with `use` prefix
+
+- `/styles`: Global CSS and styling utilities
+  - `globals.css`: Global styles
+  - Other style-related configurations
+
+- `/public`: Static assets like images, fonts, etc.
+
+- `/memory-bank`: Project knowledge base (reference only, not part of the app)
+  - Contains contextual information about the project
+
+## Main Entry Points
+
+The main entry point to the application is [app/page.tsx](mdc:app/page.tsx), which serves as the homepage.
+
+## Key Configuration Files
+
+- [next.config.mjs](mdc:next.config.mjs): Next.js configuration
+- [tailwind.config.ts](mdc:tailwind.config.ts): Tailwind CSS configuration
+- [tsconfig.json](mdc:tsconfig.json): TypeScript configuration
+- [package.json](mdc:package.json): Dependencies and scripts
+
+## Important Routes
+
+- `/`: Homepage
+- `/curriculum`: Course curriculum
+- `/instructor`: Instructor profiles
+- `/pricing`: Pricing plans
+- `/community`: Community section
+- `/faq`: Frequently asked questions
