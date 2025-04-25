@@ -1,5 +1,43 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Development Journal: Geometrik AI Course Platform
+
+## Project Timeline
+
+### Initial Setup Phase
+- Created memory-bank directory structure for project context
+- Established .cursor/rules directory for AI assistance configuration
+- Configured initial project structure and core dependencies
+
+### Current Development Phase
+- Adding new Case Studies feature to showcase student projects
+- Planning implementation of file-based Markdown content approach
+- Designing component structure for case study listing and detail pages
+- Researching Framer Motion animations for enhanced user experience
+
+## Feature Development Log
+
+### Case Studies Feature (In Progress)
+- **Feature Overview**: Showcase former student projects with detailed case studies
+- **Implementation Approach**: 
+  - Using Markdown files for content stored in `/content/case-studies/`
+  - Creating listing page and detail page with Next.js dynamic routes
+  - Implementing Framer Motion animations for transitions
+  - Following atomic design principles for component structure
+- **Technical Decisions**:
+  - Selected file-based approach over CMS for simplicity
+  - Chose Framer Motion for animations to enhance user experience
+  - Adopting existing design patterns from FeatureCard component
+  - Using gray-matter for Markdown frontmatter parsing
+- **Challenges & Solutions**:
+  - TBD as development progresses
+
+## Learning & Insights
+- Next.js App Router provides excellent support for dynamic routes
+- Framer Motion offers sophisticated animation capabilities
+- Markdown with frontmatter provides a simple but effective content management approach
+
+This journal documents the development progress, technical decisions, and insights gained throughout the project, with current focus on the Case Studies feature implementation.

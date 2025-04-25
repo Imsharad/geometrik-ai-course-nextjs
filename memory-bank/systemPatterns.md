@@ -20,6 +20,12 @@
 - **Component Variants**: Using `class-variance-authority` for component variants
 - **Composition**: Using `clsx`/`tailwind-merge` for conditional class names
 
+### Animation Patterns
+- **Framer Motion**: For sophisticated animations and transitions
+- **Entry Animations**: Staggered animations on component mount
+- **Hover Effects**: Interactive feedback on user hover
+- **Scroll Animations**: Reveal animations triggered by scroll position
+
 ## Coding Patterns
 
 ### Component Patterns
@@ -44,6 +50,7 @@ export function Button({
 - Server Components for direct data fetching
 - Client Components with SWR or React Query for client-side data fetching with caching
 - API routes for backend operations
+- File system based content loading for Markdown files
 
 ### Form Handling
 ```tsx
@@ -63,6 +70,33 @@ export function LoginForm() {
 }
 ```
 
+### Content Management
+```tsx
+// Example pattern for loading Markdown content
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+export async function getCaseStudies() {
+  const directory = path.join(process.cwd(), 'content/case-studies');
+  const files = fs.readdirSync(directory);
+  
+  const caseStudies = files.map(file => {
+    const filePath = path.join(directory, file);
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(fileContent);
+    
+    return {
+      slug: file.replace('.md', ''),
+      ...data,
+      content
+    };
+  });
+  
+  return caseStudies;
+}
+```
+
 ## Directory Structure Conventions
 
 ### Component Organization
@@ -76,6 +110,11 @@ export function LoginForm() {
 - Use page.tsx for page content
 - Group related pages in subdirectories
 
+### Content Organization
+- Store Markdown files in `/content` directory
+- Group related content by feature (e.g., `/content/case-studies`)
+- Use consistent frontmatter schema for each content type
+
 ## Error Handling
 - Use try/catch for async operations
 - Implement error boundaries for client components
@@ -85,5 +124,6 @@ export function LoginForm() {
 - Memoize expensive calculations with `useMemo`
 - Optimize re-renders with `useCallback` for function props
 - Use dynamic imports for code splitting
+- Generate static pages from Markdown at build time
 
 *This document should be updated as the system architecture evolves.* 

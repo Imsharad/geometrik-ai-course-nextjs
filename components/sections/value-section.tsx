@@ -33,7 +33,7 @@ const itemVariants = {
 }
 
 export function ValueSection() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
@@ -49,8 +49,7 @@ export function ValueSection() {
             Transformative Value for Your Career
           </h2>
           <p className="text-gray-600 text-lg">
-            Understand how our course addresses your challenges and provides concrete solutions for your professional
-            growth.
+            Understand how our course directly translates to job opportunities, increased income, and professional advancement in the AI field.
           </p>
         </motion.div>
 
@@ -61,10 +60,10 @@ export function ValueSection() {
               <div className="p-2 rounded-full bg-blue-50 text-blue-600">
                 <Lightbulb className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-semibold">Problem-Solution Framework</h3>
+              <h3 className="text-xl font-semibold">Career Transition Framework</h3>
             </div>
 
-            <ProblemSolutionFramework />
+            <CareerTransitionFramework />
           </motion.div>
 
           {/* ROI Calculator - 2 columns */}
@@ -82,42 +81,42 @@ export function ValueSection() {
   )
 }
 
-function ProblemSolutionFramework() {
+function CareerTransitionFramework() {
   // Problem-solution pairs
   const pairs = [
     {
       problem: {
-        title: "Lack of structured knowledge",
-        description: "Random tutorials and fragmented resources don't provide a comprehensive understanding",
+        title: "Limited career growth in current role",
+        description: "Feeling stuck in a stagnant industry with low salary ceiling and minimal innovation",
         icon: <HelpCircle className="h-4 w-4" />,
       },
       solution: {
-        title: "Comprehensive curriculum",
-        description: "Structured learning path that builds your knowledge systematically",
+        title: "AI career fast-track",
+        description: "Join high-growth AI sector with avg. salary increase of 72% within first year",
         icon: <CheckCircle className="h-4 w-4" />,
       },
     },
     {
       problem: {
-        title: "Theory without application",
-        description: "Most courses focus on concepts without practical implementation guidance",
+        title: "Lack of relevant AI job skills",
+        description: "Self-teaching isn't enough for employers who demand proven practical experience",
         icon: <HelpCircle className="h-4 w-4" />,
       },
       solution: {
-        title: "Practical projects",
-        description: "Real-world applications and exercises to reinforce every concept",
+        title: "Industry-recognized portfolio",
+        description: "Build 5 job-relevant AI projects that demonstrate your capabilities to employers",
         icon: <CheckCircle className="h-4 w-4" />,
       },
     },
     {
       problem: {
-        title: "Undefined career path",
-        description: "Uncertainty about how to leverage skills for career advancement",
+        title: "No industry connections",
+        description: "Breaking into AI field requires insider knowledge and professional network",
         icon: <HelpCircle className="h-4 w-4" />,
       },
       solution: {
-        title: "Career roadmap",
-        description: "Clear guidance on how to apply skills for professional growth",
+        title: "Direct employer connections",
+        description: "32 hiring partner companies with guaranteed interview placement for graduates",
         icon: <CheckCircle className="h-4 w-4" />,
       },
     },

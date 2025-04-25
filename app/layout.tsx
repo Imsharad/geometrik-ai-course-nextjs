@@ -8,6 +8,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "@/app/fix-framer-motion"
 import FramerErrorFix from "./fix-framer-errors-client"
 
+// Import bootstrap script
+import "./bootstrap.js"
+
 export const metadata: Metadata = {
   title: "Geometrik.ai | Advanced AI Course",
   description: "Master AI techniques with our comprehensive curriculum at Geometrik.ai",
