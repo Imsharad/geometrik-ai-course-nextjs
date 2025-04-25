@@ -1,0 +1,26 @@
+[install]
+# Enable features
+exact = true
+production = false
+
+[install.cache]
+dir = ".bun/install/cache"
+
+[test]
+coverage = true
+
+[run]
+# Environment Variables
+env = [
+  "NODE_ENV=development",
+]
+
+# Set the default restart flag
+# When restart is true, bun run will automatically restart when watched files change
+restart = false
+
+# bun run paths to watch for restart
+watch = ["./app", "./lib", "./components", "./content"]
+
+# bun run paths to ignore for restart
+ignore = ["node_modules"] 
