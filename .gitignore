@@ -25,3 +25,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cursor rules and memory bank
+# Uncomment the following lines if you want to exclude personal preferences
+# .cursor/user-rules/
+# memory-bank/activeContext.md
+# memory-bank/progress.md
