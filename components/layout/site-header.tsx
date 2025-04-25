@@ -15,6 +15,7 @@ const navItems = [
   { title: "Curriculum", href: "/curriculum" },
   { title: "Instructor", href: "/instructor" },
   { title: "Community", href: "/community" },
+  { title: "Case Studies", href: "/case-studies" },
   { title: "Pricing", href: "/pricing" },
   { title: "FAQ", href: "/faq" },
 ]

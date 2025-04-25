@@ -1,5 +1,49 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Project Guide: Geometrik AI Course Platform
+
+## Project Overview
+The Geometrik AI Course platform is a modern educational website built with Next.js, React 19, and Tailwind CSS. It features course curriculum, instructor profiles, community sections, pricing plans, FAQ section, and a Case Studies section showcasing student projects.
+
+## Key Features
+- Curriculum presentation with clear progression paths
+- Instructor profiles showcasing faculty expertise
+- Community engagement features
+- Transparent pricing and enrollment options
+- FAQ section for common questions
+- Case Studies showcase of successful student projects
+- Responsive design for all devices
+
+## Development Guidelines
+- Follow atomic design principles for component organization
+- Use server components where possible for data fetching
+- Implement animations with Framer Motion, especially for the Case Studies feature
+- Use Markdown files for case study content
+- Maintain consistent design language across all sections
+
+## Case Studies Implementation
+- Store case study content as Markdown files in `/content/case-studies/`
+- Create listing page and detail page using dynamic routes
+- Develop card components based on existing `FeatureCard` component
+- Implement staggered animations for card entry and hover effects
+- Create detailed view with metrics, content sections, and visual elements
+
+## Tech Stack Highlights
+- Next.js 15.1.0 with App Router
+- React 19
+- TypeScript 5.x
+- Tailwind CSS 3.4.x
+- Framer Motion 12.0.0-alpha.0
+- Markdown processing with gray-matter, remark, and rehype
+
+## Directory Structure
+- `/app`: Next.js pages and layouts
+- `/components`: Reusable UI components
+- `/content`: Markdown files for static content
+- `/lib`: Utility functions and shared logic
+- `/public`: Static assets
+
+This rule provides guidance on the project's purpose, structure, and development patterns.

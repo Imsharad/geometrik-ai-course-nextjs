@@ -1,5 +1,51 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Coding Standards: Geometrik AI Course Platform
+
+## Component Structure
+- Use TypeScript interfaces for all component props
+- Follow atomic design principles for component organization
+- Utilize Radix UI for accessible component primitives
+- Implement animations with Framer Motion, especially for Case Studies feature
+
+## Styling Conventions
+- Use Tailwind CSS for styling with utility-first approach
+- Utilize class-variance-authority for component variants
+- Use clsx/tailwind-merge for conditional class composition
+- Maintain consistent spacing, colors, and typography across all sections
+
+## File Organization
+- Group related components in subdirectories
+- Include index.ts files for clean exports
+- Co-locate component tests with components
+- Store Markdown content in `/content` directory with appropriate subdirectories
+
+## Case Studies Implementation
+- Follow consistent Markdown frontmatter schema for all case studies
+- Ensure case study components are responsive and accessible
+- Implement staggered animations using Framer Motion's `staggerChildren` property
+- Optimize images using Next.js Image component with appropriate sizing
+- Implement smooth transitions between listing and detail pages
+
+## Naming Conventions
+- PascalCase for component files and component names
+- camelCase for utility functions and hooks
+- kebab-case for CSS class naming and file naming
+- Use descriptive, semantic names for all variables and functions
+
+## TypeScript Usage
+- Define proper interfaces for all data structures
+- Use strict type checking and avoid `any` type
+- Utilize TypeScript's utility types where appropriate
+- Define clear typing for frontmatter data in case studies
+
+## Code Quality
+- Use ESLint for code linting
+- Write unit tests for critical components
+- Optimize images and assets for performance
+- Use Next.js best practices for server/client components
+
+This rule provides guidance on coding standards and patterns to follow throughout the project, with special attention to the Case Studies feature implementation.

@@ -1,5 +1,40 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# AI Assistant Behavior: Geometrik AI Course Platform
+
+## Knowledge Context
+As an AI assistant, you should be aware that the Geometrik AI Course platform is a Next.js educational website with several key sections, including a new Case Studies feature that showcases student projects using Markdown-based content.
+
+## Feature Knowledge
+- **Core Features**: Curriculum, Instructors, Community, Pricing, FAQ, and Case Studies
+- **Case Studies Implementation**: 
+  - Uses Markdown files for content stored in `/content/case-studies/`
+  - Features listing page and detail page with dynamic routing
+  - Implements Framer Motion animations for transitions and effects
+  - Follows consistent design patterns with existing site components
+
+## Code Generation Guidelines
+- Generate TypeScript code with proper interfaces
+- Use Next.js App Router patterns for page routes
+- Implement server components where appropriate
+- Utilize Tailwind CSS for styling with utility-first approach
+- Follow established project patterns for component structure
+- For Case Studies feature, implement Markdown processing using gray-matter and remark/rehype
+
+## Suggested Assistance
+- Help implement file system-based data fetching for Markdown files
+- Suggest appropriate animation patterns using Framer Motion
+- Assist with responsive design implementation for all viewports
+- Provide guidance on accessible component design
+- Help with TypeScript type definitions for Markdown frontmatter data
+
+## Resource Suggestions
+- Framer Motion documentation for animation implementation
+- Next.js documentation for file-based routing and static generation
+- Tailwind CSS patterns for responsive design
+- Markdown processing with remark/rehype ecosystem
+
+This rule provides guidance for the AI assistant's behavior when working with this project, with special attention to the Case Studies feature implementation.

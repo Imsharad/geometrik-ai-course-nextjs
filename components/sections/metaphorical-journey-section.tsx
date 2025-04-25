@@ -22,6 +22,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Input } from "@/components/ui/input"
+import { LeadCaptureForm } from "@/components/marketing/lead-capture-form"
 
 // Enhanced iteration tracking system
 const ITERATIONS = {
@@ -730,6 +732,18 @@ export function MetaphoricalJourneySection() {
                 </div>
               </div>
             )}
+
+            {/* Add Lead Magnet for Retargeting */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-16 max-w-md mx-auto"
+            >
+              <LeadCaptureForm
+                title="Free: AI Career Roadmap" 
+                description="Get our 10-page playbook used by 2,500+ graduates to land top tech roles"
+                actionLabel="Download Free Career Guide"
+              />
+            </motion.div>
           </motion.div>
         </AnimatePresence>
 
