@@ -1,5 +1,40 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Dependency Management Rules
+
+## Package Installation
+This project uses Bun as the package manager for faster installations and better dependency resolution. Use Bun commands for adding, updating, or removing packages.
+
+```bash
+# Recommended approach for package installation
+~/.bun/bin/bun add <package-name>
+
+# For dev dependencies
+~/.bun/bin/bun add -d <package-name>
+
+# Running scripts
+~/.bun/bin/bun run <script-name>
+```
+
+> **Note:** The project previously used npm with the `--legacy-peer-deps` flag to handle conflicts with React 19, but has now migrated to Bun for superior dependency resolution.
+
+## Markdown Processing
+For Markdown processing, the following packages are already installed:
+- gray-matter (For parsing frontmatter in Markdown files)
+- remark (For processing Markdown)
+- remark-html (For converting Markdown to HTML)
+
+## Common Issues
+- If you encounter "Module not found" errors, check that all required dependencies are installed.
+- When adding new features that require specific packages, document these dependencies in the relevant memory-bank files.
+- For packages with complex peer dependency requirements, Bun generally handles these more gracefully than npm.
+- If Bun still has issues with a particular package, try using the `--no-save` flag first to test compatibility.
+
+## Current Dependency Resolutions
+- Markdown processing packages (gray-matter, remark, remark-html) are now managed with Bun.
+- The project uses React 19 with Next.js 15, which may cause peer dependency conflicts with some packages, but Bun helps manage these more effectively.
+
+Remember to update the package.json and document any significant dependency changes in the memory-bank progress file.
