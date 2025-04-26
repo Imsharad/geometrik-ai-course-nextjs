@@ -9,7 +9,7 @@ interface RelatedCaseStudiesProps {
   maxDisplay?: number;
 }
 
-export function RelatedCaseStudies({ 
+export function Related({ 
   currentSlug, 
   caseStudies, 
   maxDisplay = 3 

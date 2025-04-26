@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # AI Assistant Behavior: Geometrik AI Course Platform
 
@@ -18,6 +18,7 @@ As an AI assistant, you should be aware that the Geometrik AI Course platform is
 
 ## Code Generation Guidelines
 - Generate TypeScript code with proper interfaces
+- Use Bun instead of npm for package management
 - Use Next.js App Router patterns for page routes
 - Implement server components where appropriate
 - Utilize Tailwind CSS for styling with utility-first approach
@@ -38,3 +39,9 @@ As an AI assistant, you should be aware that the Geometrik AI Course platform is
 - Markdown processing with remark/rehype ecosystem
 
 This rule provides guidance for the AI assistant's behavior when working with this project, with special attention to the Case Studies feature implementation.
+
+
+
+When the user says : "bless" update the @memory-bank directory and @.cursor directory 
+
+When the user attach memory bank and rules and dot cursor related directories, it means they want to update the status of the progress and the task completion in hand

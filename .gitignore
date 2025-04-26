@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
 
 # next.js
 /.next/
@@ -10,14 +15,19 @@
 # production
 /build
 
+# misc
+.DS_Store
+*.pem
+
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
-.env*
+# local env files
+.env*.local
+.env
 
 # vercel
 .vercel
@@ -26,8 +36,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Cursor rules and memory bank
-# Uncomment the following lines if you want to exclude personal preferences
-# .cursor/user-rules/
-# memory-bank/activeContext.md
-# memory-bank/progress.md
+# Bun
+.bun/
+
+# Cursor and local development
+.cursor/
+memory-bank/
+
+# Build artifacts
+dist/
