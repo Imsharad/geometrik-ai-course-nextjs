@@ -126,4 +126,86 @@ export async function getCaseStudies() {
 - Use dynamic imports for code splitting
 - Generate static pages from Markdown at build time
 
+## Authentication System
+
+### Architecture
+The authentication system is built on Supabase, following a "move fast" MVP approach that prioritizes core functionality over advanced features.
+
+#### Key Components:
+1. **Supabase Auth Integration:**
+   - Uses `@supabase/supabase-js` for core auth functionality
+   - Leverages `@supabase/ssr` for server-side rendering and cookie management
+   - Creates dedicated client/server utilities to maintain proper boundaries
+
+2. **Middleware Protection:**
+   - Next.js middleware intercepts requests to check authentication status
+   - Protects routes that require authentication (e.g., dashboard, account pages)
+   - Redirects authenticated users away from auth pages
+   - Manages cookies for session persistence
+
+3. **Client/Server Boundary:**
+   - Client-side components (`'use client'`) for interactive auth elements
+   - Server components for initial page rendering
+   - Proper data fetching patterns to respect hydration constraints
+
+4. **Database Integration:**
+   - Profiles table with automatic creation via DB trigger
+   - Row Level Security (RLS) policies to protect user data
+   - TypeScript types for database schema
+
+### Authentication Flow
+1. **Signup:**
+   - User enters email, password, and profile information
+   - Client-side validation ensures password requirements
+   - Supabase creates user in auth.users table
+   - Database trigger creates profile entry
+   - Success message and redirect to login
+
+2. **Login:**
+   - User enters email and password
+   - Supabase authenticates and creates session
+   - Session cookie stored for persistence
+   - Redirect to dashboard page
+
+3. **Session Management:**
+   - Cookies handle session persistence across page loads
+   - Middleware checks session status on each request
+   - User menu displays based on authentication state
+
+4. **Logout:**
+   - Clear session via Supabase client
+   - Remove cookies
+   - Redirect to home page
+
+### UI Components
+1. **Forms:**
+   - `LoginForm`: Email/password login with error handling
+   - `SignupForm`: Registration with validation and user feedback
+   - `UserProfile`: Profile editing with save functionality
+
+2. **Navigation Elements:**
+   - `UserMenu`: Conditionally renders in header based on auth state
+   - Dropdown with user info and logout option
+   - Avatar with user initials or image
+
+3. **Pages:**
+   - `/login`: Login page with form
+   - `/signup`: Signup page with form
+   - `/dashboard`: Protected landing page after authentication
+   - `/dashboard/account`: Profile management
+
+### Security Considerations
+- Password validation ensures minimum security standards
+- Profile data protected by Row Level Security
+- Protected routes enforce authentication
+- Rate limiting handled by Supabase
+- Session tokens managed securely via cookies
+
+### MVP Implementation Notes
+- Simplified for initial release by removing OAuth/social login
+- Focused on core email/password authentication
+- Enhanced validation and error handling for improved UX
+- Deferred features like password reset and email verification
+- Created foundation for expanding with more authentication options
+
 *This document should be updated as the system architecture evolves.* 

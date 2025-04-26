@@ -1,0 +1,32 @@
+# Ignore dependencies
+node_modules
+.git
+
+# Ignore build output
+.next
+out
+
+# Ignore bun-specific files
+.bun
+
+# Ignore cache
+.cache
+
+# Ignore development files
+.github
+.vscode
+*.log
+.env.local
+.env.development
+.env.test
+
+# Ignore cursor-related files
+.cursor
+
+# Ignore memory-bank
+memory-bank
+
+# Ignore large test files or assets
+**/*.mp4
+**/*.zip
+**/*.tar.gz 
