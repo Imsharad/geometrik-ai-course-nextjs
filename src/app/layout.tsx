@@ -1,15 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
-import "./globals.css"
+import "@/styles/globals.css"
 import "./debug.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 // Import our fix early to ensure it runs before any animations
-import "@/app/fix-framer-motion"
-import FramerErrorFix from "./fix-framer-errors-client"
+import "@/app/fix-framer-motion";
+import FramerErrorFixClient from "@/components/FramerErrorFixClient"
 
 // Import bootstrap script
-import "./bootstrap.js"
+import "./bootstrap.js";
 
 export const metadata: Metadata = {
   title: "Geometrik.ai | Advanced AI Course",
@@ -27,14 +27,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <FramerErrorFix />
-          {children}
+        <FramerErrorFixClient />
+        {children}
         </ThemeProvider>
       </body>
     </html>
   )
 }
-
-
-
-import './globals.css'

@@ -97,13 +97,13 @@ const discussions = [
 ]
 
 export function CommunitySection() {
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [activeTab, setActiveTab] = useState("discussions")
 
   return (
     <section
-      ref={ref}
+      ref={ref as React.RefObject<HTMLElement>}
       className="py-24 relative overflow-hidden isolate"
       id="community"
       aria-labelledby="community-heading"
@@ -198,128 +198,151 @@ export function CommunitySection() {
                 variants={fadeIn}
                 className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 text-center"
               >
-                <StatIcon className="h-6 w-6 mx-auto mb-3 text-blue-500" />
-                <div className="text-3xl font-bold mb-1">{stat.value}</div>
+                <div className="flex justify-center mb-3">
+                  <StatIcon className="h-7 w-7 text-blue-500" />
+                </div>
+                <div className="text-2xl md:text-3xl font-bold text-gray-900">{stat.value}</div>
                 <div className="text-sm text-gray-500">{stat.label}</div>
               </motion.div>
             )
           })}
         </motion.div>
 
-        <motion.div className="mb-16" variants={fadeIn} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-          <h3 className="text-xl font-semibold mb-8 text-center">Community Features</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {communityFeatures.map((feature) => (
-              <div
-                key={feature.id}
-                className="flex items-start gap-4 p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <div className="p-3 rounded-full bg-blue-50">{feature.icon}</div>
-                <div>
-                  <h4 className="font-medium mb-2">{feature.title}</h4>
-                  <p className="text-sm text-gray-600">{feature.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Discussions */}
-        <motion.div className="mb-16" variants={fadeIn} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-          <Tabs defaultValue="discussions" value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="w-full grid grid-cols-3 mb-8">
-              <TabsTrigger
-                value="discussions"
-                className="data-[state=active]:bg-blue-500 data-[state=active]:text-white"
-              >
-                Discussions
-              </TabsTrigger>
-              <TabsTrigger value="success" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
-                Success Stories
-              </TabsTrigger>
-              <TabsTrigger value="events" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
-                Upcoming Events
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="discussions" className="mt-0">
+        {/* Community features and tabs */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-16">
+          <div className="grid md:grid-cols-2">
+            {/* Features list */}
+            <motion.div
+              className="p-8 md:p-10 bg-gradient-to-br from-gray-50 to-gray-100"
+              variants={staggerContainer}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <h3 className="text-xl md:text-2xl font-bold mb-6">Community Features</h3>
               <div className="space-y-6">
-                {discussions.map((discussion) => (
-                  <div
-                    key={discussion.id}
-                    className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="flex items-start gap-3 mb-3">
-                      <Avatar className="h-10 w-10 border-2 border-white">
-                        <AvatarImage src={discussion.avatar} alt={discussion.author} />
-                        <AvatarFallback>{discussion.author[0]}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-center mb-1">
-                          <h4 className="font-medium">{discussion.author}</h4>
-                          <span className="text-xs text-gray-500 flex items-center">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {discussion.time}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600">{discussion.content}</p>
-                      </div>
+                {communityFeatures.map((feature) => (
+                  <motion.div key={feature.id} variants={fadeIn} className="flex items-start">
+                    <div className="mt-1 mr-4 p-2 bg-white rounded-lg shadow-sm">{feature.icon}</div>
+                    <div>
+                      <h4 className="font-medium text-gray-900">{feature.title}</h4>
+                      <p className="text-sm text-gray-500">{feature.description}</p>
                     </div>
-                    <div className="flex items-center gap-4 ml-12">
-                      <span className="text-xs text-gray-500 flex items-center">
-                        <ThumbsUp className="h-3 w-3 mr-1" />
-                        {discussion.likes} likes
-                      </span>
-                      <span className="text-xs text-gray-500 flex items-center">
-                        <MessageSquare className="h-3 w-3 mr-1" />
-                        {discussion.replies} replies
-                      </span>
-                    </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
+            </motion.div>
 
-              <div className="mt-6 text-center">
-                <Button variant="outline" size="sm" className="text-blue-500 border-blue-200 hover:bg-blue-50">
-                  View All Discussions
-                </Button>
-              </div>
-            </TabsContent>
+            {/* Discussions preview */}
+            <motion.div
+              className="p-8 md:p-10"
+              variants={fadeIn}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl md:text-2xl font-bold">Community Activity</h3>
+                  <TabsList className="bg-gray-100">
+                    <TabsTrigger value="discussions" className="text-xs">Discussions</TabsTrigger>
+                    <TabsTrigger value="events" className="text-xs">Events</TabsTrigger>
+                  </TabsList>
+                </div>
 
-            <TabsContent value="success" className="mt-0">
-              <div className="p-12 text-center text-gray-500">Success stories content will appear here</div>
-            </TabsContent>
+                <TabsContent value="discussions" className="m-0">
+                  <div className="space-y-4">
+                    {discussions.map((discussion) => (
+                      <div key={discussion.id} className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-start space-x-3">
+                          <Avatar>
+                            <AvatarImage src={discussion.avatar} alt={discussion.author} />
+                            <AvatarFallback>{discussion.author.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between">
+                              <p className="font-medium text-sm">{discussion.author}</p>
+                              <div className="flex items-center text-xs text-gray-500">
+                                <Clock className="h-3 w-3 mr-1" />
+                                {discussion.time}
+                              </div>
+                            </div>
+                            <p className="mt-1 text-sm text-gray-600 line-clamp-2">{discussion.content}</p>
+                            <div className="mt-2 flex items-center space-x-4">
+                              <div className="flex items-center text-xs text-gray-500">
+                                <ThumbsUp className="h-3 w-3 mr-1" />
+                                {discussion.likes}
+                              </div>
+                              <div className="flex items-center text-xs text-gray-500">
+                                <MessageSquare className="h-3 w-3 mr-1" />
+                                {discussion.replies} replies
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
 
-            <TabsContent value="events" className="mt-0">
-              <div className="p-12 text-center text-gray-500">Upcoming events content will appear here</div>
-            </TabsContent>
-          </Tabs>
-        </motion.div>
+                <TabsContent value="events" className="m-0">
+                  <div className="space-y-4">
+                    <div className="p-4 bg-blue-50 border border-blue-100 rounded-lg">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-medium text-blue-900">Upcoming Workshop</h4>
+                          <p className="text-sm text-blue-700 mt-1">Advanced Techniques in Module 5</p>
+                        </div>
+                        <div className="bg-white rounded-md px-2 py-1 text-xs font-medium text-blue-800">Tomorrow</div>
+                      </div>
+                    </div>
 
-        {/* Call to action */}
-        <motion.div className="mt-16" variants={fadeIn} initial="hidden" animate={isInView ? "visible" : "hidden"}>
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl p-12 shadow-lg overflow-hidden relative">
-            {/* Background blur effects */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+                    <div className="p-4 bg-gray-50 border border-gray-100 rounded-lg">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-medium">Ask Me Anything Session</h4>
+                          <p className="text-sm text-gray-500 mt-1">With Senior Instructor David Chen</p>
+                        </div>
+                        <div className="bg-white rounded-md px-2 py-1 text-xs font-medium text-gray-700">Next Week</div>
+                      </div>
+                    </div>
 
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-4 text-center">Ready to Join Our Community?</h3>
-              <p className="text-blue-100 mb-8 max-w-2xl mx-auto text-center">
-                Connect with fellow learners, share your journey, and accelerate your growth with our supportive
-                community of professionals.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-white text-blue-600 hover:bg-blue-50">Join Community</Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white/10">
-                  Learn More
-                </Button>
-              </div>
-            </div>
+                    <div className="p-4 bg-gray-50 border border-gray-100 rounded-lg">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-medium">Project Showcase</h4>
+                          <p className="text-sm text-gray-500 mt-1">Present your work and receive feedback</p>
+                        </div>
+                        <div className="bg-white rounded-md px-2 py-1 text-xs font-medium text-gray-700">In 2 Weeks</div>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Join CTA */}
+        <motion.div
+          className="text-center"
+          variants={fadeIn}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <h3 className="text-2xl md:text-3xl font-bold mb-6">Join a Thriving Learning Community</h3>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            Connect with peers, get personalized support, and accelerate your learning journey with our active community
+            of AI enthusiasts.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 h-auto text-lg rounded-xl">
+              Become a Member
+            </Button>
+            <Button variant="outline" className="px-8 py-6 h-auto text-lg rounded-xl">
+              Learn More
+            </Button>
           </div>
         </motion.div>
       </div>
     </section>
   )
-}
-
+} 
