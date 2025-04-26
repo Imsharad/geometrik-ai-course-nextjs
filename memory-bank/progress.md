@@ -85,6 +85,7 @@
 - [ ] Implement pricing section
 - [ ] Create FAQ section
 - [ ] Enhance community features
+- [ ] **Implement Supabase Integration (Authentication, Profiles, RLS)**
 
 ## Implemented Features
 - [x] Case study listing page with search functionality
@@ -179,7 +180,24 @@
 *   None currently - all tasks have been completed!
 
 ## To Do Tasks (New)
-*   None currently - all tasks have been assigned and completed.
+*   **Supabase Setup - Phase 1: Core Setup & Authentication**
+    *   [ ] Install Supabase dependencies (`@supabase/supabase-js`, `@supabase/auth-helpers-nextjs`)
+    *   [ ] Configure Supabase environment variables (`.env.local`)
+    *   [ ] Create Supabase client utilities (`src/lib/supabase/client.ts`, `server.ts`, `middleware.ts`)
+    *   [ ] Implement Middleware for session management (`src/middleware.ts`)
+    *   [ ] Create Authentication UI Components (Login, Signup, Logout) (`src/components/auth/`)
+    *   [ ] Integrate Auth Components into relevant pages (e.g., `/login`, `/signup`)
+*   **Supabase Setup - Phase 2: User Profiles & Data Interaction**
+    *   [ ] Set up `profiles` table in Supabase DB
+    *   [ ] Enable RLS on `profiles` table and add policies
+    *   [ ] Create Supabase trigger/function to auto-create profiles (`handle_new_user`)
+    *   [ ] Fetch user/profile data in Server Components (e.g., Layout, Navbar)
+    *   [ ] Implement profile update functionality (Server Action + Client Component Form)
+*   **Supabase Setup - Phase 3: Security & Refinement**
+    *   [ ] Implement RLS policies for all other relevant tables (courses, lessons, etc.)
+    *   [ ] Generate Supabase TypeScript types and integrate them
+    *   [ ] Add comprehensive error handling and loading states to Auth/Profile UI
+    *   [ ] Implement route protection using Middleware
 
 ## Backlog/Future Ideas
 *   Add filtering/sorting functionality to the Case Studies listing page.
