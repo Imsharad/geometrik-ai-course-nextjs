@@ -59,9 +59,16 @@ export default function UserMenu() {
   }, []);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
-    router.push('/');
+    try {
+      setLoading(true);
+      await supabase.auth.signOut();
+      router.refresh();
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Show login/signup buttons if user is not logged in
@@ -76,10 +83,10 @@ export default function UserMenu() {
   if (!user) {
     return (
       <div className="flex items-center space-x-2">
-        <Button asChild size="sm">
+        <Button asChild variant="outline" className="hidden md:inline-flex">
           <Link href="/login">Sign In</Link>
         </Button>
-        <Button asChild variant="outline" size="sm">
+        <Button asChild className="hidden md:inline-flex">
           <Link href="/signup">Sign Up</Link>
         </Button>
       </div>
@@ -131,7 +138,7 @@ export default function UserMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>
+        <DropdownMenuItem onClick={handleSignOut} className="text-red-500 focus:text-red-500">
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

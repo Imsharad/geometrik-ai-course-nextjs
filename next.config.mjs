@@ -78,26 +78,6 @@ const nextConfig = {
         destination: '/',
         permanent: false,
       },
-      {
-        source: '/login',
-        destination: '/',
-        permanent: false,
-      },
-      {
-        source: '/signup',
-        destination: '/',
-        permanent: false,
-      },
-      {
-        source: '/register',
-        destination: '/',
-        permanent: false,
-      },
-      {
-        source: '/dashboard',
-        destination: '/',
-        permanent: false,
-      },
     ]
   },
   experimental: {

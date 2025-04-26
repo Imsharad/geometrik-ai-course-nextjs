@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -36,7 +37,11 @@ export default function LoginForm() {
       router.refresh();
       router.push('/dashboard');
     } catch (error: any) {
-      setError(error.message || 'Failed to sign in');
+      if (error.message.includes('Invalid login credentials')) {
+        setError('Invalid email or password. Please try again.');
+      } else {
+        setError(error.message || 'Failed to sign in. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -69,6 +74,7 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
           </div>
 
@@ -80,6 +86,7 @@ export default function LoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
           </div>
 
@@ -95,28 +102,10 @@ export default function LoginForm() {
       <CardFooter className="flex flex-col space-y-4">
         <div className="text-sm text-center">
           <span className="text-muted-foreground">Don't have an account? </span>
-          <Button variant="link" className="p-0" onClick={() => router.push('/signup')}>
+          <Link href="/signup" className="font-medium text-primary hover:underline">
             Sign Up
-          </Button>
+          </Link>
         </div>
-        <Button 
-          variant="outline" 
-          className="w-full" 
-          onClick={async () => {
-            setIsLoading(true);
-            const { error } = await supabase.auth.signInWithOAuth({
-              provider: 'github',
-              options: {
-                redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
-              },
-            });
-            if (error) setError(error.message);
-            setIsLoading(false);
-          }}
-          disabled={isLoading}
-        >
-          Continue with GitHub
-        </Button>
       </CardFooter>
     </Card>
   );

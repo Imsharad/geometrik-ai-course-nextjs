@@ -8,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SignupForm() {
   const [email, setEmail] = useState('');
@@ -26,6 +27,12 @@ export default function SignupForm() {
     setError(null);
     setSuccessMessage(null);
 
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long.');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -42,9 +49,18 @@ export default function SignupForm() {
         throw error;
       }
 
-      setSuccessMessage('Check your email for the confirmation link.');
+      setSuccessMessage('Account created successfully! You can now sign in.');
+      
+      // After successful signup, redirect to login or dashboard
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
     } catch (error: any) {
-      setError(error.message || 'Failed to sign up');
+      if (error.message.includes('already registered')) {
+        setError('This email is already registered. Please sign in instead.');
+      } else {
+        setError(error.message || 'Failed to create account. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +85,8 @@ export default function SignupForm() {
           )}
 
           {successMessage && (
-            <Alert>
+            <Alert variant="default" className="bg-green-50 text-green-800 border-green-200">
+              <CheckCircle className="h-4 w-4 text-green-500" />
               <AlertTitle>Success</AlertTitle>
               <AlertDescription>{successMessage}</AlertDescription>
             </Alert>
@@ -83,6 +100,7 @@ export default function SignupForm() {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
+              autoComplete="name"
             />
           </div>
 
@@ -95,6 +113,7 @@ export default function SignupForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
             />
           </div>
 
@@ -107,6 +126,7 @@ export default function SignupForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
+              autoComplete="new-password"
             />
             <p className="text-xs text-muted-foreground">
               Password must be at least 8 characters long.
@@ -125,32 +145,10 @@ export default function SignupForm() {
       <CardFooter className="flex flex-col space-y-4">
         <div className="text-sm text-center">
           <span className="text-muted-foreground">Already have an account? </span>
-          <Button 
-            className="p-0" 
-            onClick={() => router.push('/login')}
-            variant="link"
-          >
+          <Link href="/login" className="font-medium text-primary hover:underline">
             Sign In
-          </Button>
+          </Link>
         </div>
-        <Button 
-          className="w-full" 
-          onClick={async () => {
-            setIsLoading(true);
-            const { error } = await supabase.auth.signInWithOAuth({
-              provider: 'github',
-              options: {
-                redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`,
-              },
-            });
-            if (error) setError(error.message);
-            setIsLoading(false);
-          }}
-          disabled={isLoading}
-          variant="outline"
-        >
-          Continue with GitHub
-        </Button>
       </CardFooter>
     </Card>
   );
