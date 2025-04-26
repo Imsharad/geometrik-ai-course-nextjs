@@ -84,6 +84,7 @@ export interface CaseStudy {
   timeline?: Timeline;
 }
 
+// Update the path to point to content directory at project root
 const caseStudiesDirectory = path.join(process.cwd(), 'content/case-studies');
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy> {

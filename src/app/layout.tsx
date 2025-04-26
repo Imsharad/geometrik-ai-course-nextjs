@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import "./globals.css"
+import "@/styles/globals.css"
 import "./debug.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -34,7 +34,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-
-import './globals.css'
