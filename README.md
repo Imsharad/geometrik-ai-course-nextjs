@@ -32,10 +32,10 @@ A modern educational platform for AI curriculum built with Next.js 15, React 19,
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/geometrik-ai-course.git
+git clone https://github.com/Imsharad/geometrik-ai-course-nextjs.git
 
 # Navigate to project directory
-cd geometrik-ai-course
+cd geometrik-ai-course-nextjs
 
 # Install dependencies with Bun
 bun install
