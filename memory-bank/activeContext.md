@@ -2,7 +2,10 @@
 *Last Updated: May 2024*
 
 ## Current Focus
-Successfully completed the enhancement of the Case Studies feature with several improvements: added proper navigation, fixed the site footer, implemented dynamic image rendering for placeholders, fixed image rendering issues in the Key Results section and Student Card, harmonized background styling, and enhanced the footer design with modern, professional aesthetics.
+Fixed a critical build error related to React context in Framer Motion components during server-side rendering. The error (`TypeError: null is not an object (evaluating 'ReactSharedInternals.H.useContext')`) was occurring during static generation of error pages. Implemented a proper client/server component boundary by creating a client wrapper component with dynamic imports and the `ssr: false` option to ensure client-side code only runs in the browser. Cleared build cache and reinstalled dependencies to resolve the issue.
+
+## Previous Focus
+Successfully reorganized the project structure by moving code directories (app/, components/, lib/, hooks/, styles/, config/) into a src/ directory while maintaining proper functionality. Updated import paths and tsconfig.json to ensure the application continues to work correctly. This reorganization reduces noise in the root directory and follows modern best practices for Next.js projects.
 
 ## Active Tasks
 - [x] Create memory-bank directory structure
@@ -23,74 +26,77 @@ Successfully completed the enhancement of the Case Studies feature with several 
 - [x] Fix Key Results image rendering
 - [x] Harmonize hero background with page content
 - [x] Enhance site footer design
+- [x] Reorganize project structure into src directory
+- [x] Update import paths and configuration
+- [x] Fix build error with Framer Motion components
+- [x] Implement proper client/server component boundary
 - [ ] Test animations for performance impacts
 - [ ] Ensure accessibility of animated components
 
 ## Key Files in Current Focus
+- `src/components/FramerErrorFixClient.tsx`: New client wrapper for the Framer error fix component
+- `src/app/layout.tsx`: Updated to use the client wrapper component
+- `src/app/fix-framer-errors-client.tsx`: Original error fix component for Framer Motion
+- `src/app/fix-framer-motion.tsx`: Motion component and animation utilities
+- `tsconfig.json`: Updated with new path mappings for src directory
+- `src/lib/case-studies.ts`: Updated to maintain correct path to content directory
 - `.cursor/rules/*.mdc`: Rules for AI assistant behavior
 - `memory-bank/*.md`: Knowledge base for project context
-- `app/case-studies/page.tsx`: Main case studies listing page (implemented and enhanced)
-- `app/case-studies/[slug]/page.tsx`: Individual case study template (implemented and fixed)
-- `components/case-studies/detail.tsx`: Enhanced case study detail component with animations and image fixes
-- `components/case-studies/hero.tsx`: Hero component with harmonized background styling
-- `components/shared/placeholder-image.tsx`: New component for dynamic image placeholders
-- `components/layout/site-footer.tsx`: Enhanced footer with improved design
-- `components/layout/site-header.tsx`: Header with navigation to case studies
-- `content/case-studies/*.md`: Case study content files (sample content created)
-- `lib/case-studies.ts`: Logic for fetching and parsing case studies (enhanced with better metric support)
-- `package.json`: Project dependencies (now managed with Bun)
+- `src/app/case-studies/page.tsx`: Main case studies listing page (moved to src)
+- `src/app/case-studies/[slug]/page.tsx`: Individual case study template (moved to src)
+- `src/components/case-studies/detail.tsx`: Enhanced case study detail component (moved to src)
+- `src/components/shared/placeholder-image.tsx`: Dynamic image placeholders (moved to src)
+- `content/case-studies/*.md`: Case study content files (remain at root)
 
 ## Recent Changes
+- Fixed build error by creating a proper client component wrapper
+- Used dynamic imports with `ssr: false` to prevent server-side rendering of client components
+- Cleared build cache and reinstalled dependencies
+- Successfully verified build process works without errors
+- Reorganized project structure by moving code into src/ directory
+- Updated tsconfig.json with new path mappings
+- Fixed import paths in layout.tsx and other files
+- Created special path mapping for content directory
+- Verified that the application builds and runs correctly
 - Added SiteFooter component to the Case Studies listing page
 - Created a reusable PlaceholderImage component for dynamic image rendering
 - Fixed "null" image in Student Card with placeholder implementation
 - Enhanced the Key Results section to properly handle metric images
-- Harmonized hero background styling on the Case Studies page
-- Significantly improved the site footer design with modern aesthetics
-- Enhanced dark mode support for the footer
-- Added category icons and improved navigation in the footer
-- Updated the Metric interface to support additional properties
-- Added proper image fallbacks throughout the application
 
 ## Next Steps
+- Document the client/server component boundary pattern
+- Monitor for any other build errors
+- Document the new project structure
+- Consider cleaning up any unused files
 - Implement more case study content
 - Add keyboard navigation support for animated elements
 - Consider performance optimizations for animation-heavy pages
-- Create case study author profile pages
-- Consider adding a featured case studies section to homepage
-- Implement filtering/sorting functionality for case studies
-- Add pagination to case studies listing
-- Implement full-text search for case studies
 
 ## Notes & Considerations
-- Ensure rules follow the appropriate .mdc format
+- React 19 and Next.js 15 have stricter boundaries between server and client components
+- The `"use client"` directive is required for any component using client-side React features
+- For components using browser-only features, consider using dynamic imports with `ssr: false`
+- Build cache issues can sometimes cause persistent errors - clear cache when troubleshooting
+- The content/ directory intentionally remains at the root level for easier content management
+- Using src/ directory follows modern Next.js project organization practices
+- Path mappings in tsconfig.json ensure imports continue to work correctly
+- Ensure all new files are created in the appropriate src/ subdirectories
 - Update this file regularly to reflect current development focus
 - Maintain consistent design language between case studies and existing pages
 - Balance animation richness with performance considerations
-- Ensure all animations have appropriate reduced-motion alternatives
-- Test animations across different devices and browsers
-- Use Bun instead of npm for package management to avoid dependency conflicts and for faster installations
 - Test new features thoroughly across different viewport sizes
-- Use the PlaceholderImage component for any future image fallbacks
 
 ## Animation Components
-- `components/animations/parallax.tsx`: Parallax effect for images and backgrounds
-- `components/animations/scroll-trigger.tsx`: Animations triggered by scroll position
-- `lib/animations.ts`: Utility functions for animations
+- `src/components/animations/parallax.tsx`: Parallax effect for images and backgrounds (moved to src)
+- `src/components/animations/scroll-trigger.tsx`: Animations triggered by scroll position (moved to src)
+- `src/lib/animations.ts`: Utility functions for animations (moved to src)
 
 ## Related Files
-- `components/case-studies/detail.tsx`: Main case study detail page using animations
-- `components/case-studies/card.tsx`: Card component with hover animations
-- `app/case-studies/[slug]/page.tsx`: Dynamic route for case studies
-- `components/shared/placeholder-image.tsx`: Reusable component for dynamic images
-- `styles/animations.css`: Custom animation styles
+- `src/components/case-studies/detail.tsx`: Main case study detail page using animations
+- `src/components/case-studies/card.tsx`: Card component with hover animations
+- `src/app/case-studies/[slug]/page.tsx`: Dynamic route for case studies
+- `src/components/shared/placeholder-image.tsx`: Reusable component for dynamic images
+- `src/styles/globals.css`: Global styles (moved from styles/ to src/styles/)
 - `tailwind.config.js`: Animation-related Tailwind configurations
-
-## Implementation Notes
-- Animations should be performant and not cause layout shifts
-- Focus on subtle, professional animations that enhance UX
-- Ensure all animations can be disabled for accessibility
-- Use dynamic placeholder images when actual images aren't available
-- Maintain consistent styling between components
 
 *This is a dynamic document that should be updated frequently to reflect the current development focus and context.* 

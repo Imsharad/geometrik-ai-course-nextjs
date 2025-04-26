@@ -8,6 +8,20 @@ alwaysApply: true
 ## Knowledge Context
 As an AI assistant, you should be aware that the Geometrik AI Course platform is a Next.js educational website with several key sections, including a new Case Studies feature that showcases student projects using Markdown-based content.
 
+## Project Architecture
+- Uses Next.js 15 with App Router architecture (src/app directory structure)
+- React 19 with strict client/server component boundaries
+- TypeScript for type safety
+- Tailwind CSS for styling with utility-first approach
+- Framer Motion for animations
+- Markdown with gray-matter and remark/rehype for content
+
+## Client/Server Component Boundaries
+- Server Components (default in App Router) cannot use browser APIs, React hooks, or context
+- Client Components must include `"use client";` directive at the top of the file
+- For components that need browser-only execution, use `next/dynamic` with `{ ssr: false }`
+- When fixing client-side only functionality, create client wrappers with dynamic imports
+
 ## Feature Knowledge
 - **Core Features**: Curriculum, Instructors, Community, Pricing, FAQ, and Case Studies
 - **Case Studies Implementation**: 
@@ -24,6 +38,7 @@ As an AI assistant, you should be aware that the Geometrik AI Course platform is
 - Utilize Tailwind CSS for styling with utility-first approach
 - Follow established project patterns for component structure
 - For Case Studies feature, implement Markdown processing using gray-matter and remark/rehype
+- Respect proper client/server component boundaries
 
 ## Suggested Assistance
 - Help implement file system-based data fetching for Markdown files
@@ -31,16 +46,25 @@ As an AI assistant, you should be aware that the Geometrik AI Course platform is
 - Assist with responsive design implementation for all viewports
 - Provide guidance on accessible component design
 - Help with TypeScript type definitions for Markdown frontmatter data
+- Guide proper client/server component architecture
+- Assist with troubleshooting build errors
 
 ## Resource Suggestions
 - Framer Motion documentation for animation implementation
 - Next.js documentation for file-based routing and static generation
+- Next.js documentation on client/server component boundaries
 - Tailwind CSS patterns for responsive design
 - Markdown processing with remark/rehype ecosystem
 
-This rule provides guidance for the AI assistant's behavior when working with this project, with special attention to the Case Studies feature implementation.
+This rule provides guidance for the AI assistant's behavior when working with this project, with special attention to the Case Studies feature implementation and proper client/server component architecture.
 
-
+## Examples of Client/Server Component Patterns
+- ❌ Importing client component directly in a server component file
+- ✅ Creating a client wrapper component marked with "use client"
+- ❌ Using React hooks outside of "use client" components
+- ✅ Using dynamic imports with { ssr: false } for browser-only code
+- ✅ Using server components for data fetching and initial HTML generation
+- ✅ Using client components for interactivity and animations
 
 When the user says : "bless" update the @memory-bank directory and @.cursor directory 
 

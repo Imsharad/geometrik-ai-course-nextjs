@@ -1,46 +1,67 @@
 # Project Progress Tracker
 
-## Current Major Task: Reimplement Case Studies
+## Current Major Task: Fix for Framer Motion Error in Next.js Build
 
-**Goal:** Replace the current case study implementation with a new version based on components found in `to-do-case-studies`.
+**Goal:** Fix the build error related to React context usage in Framer Motion components during server-side rendering.
 
 **Analysis:**
-*   **New Components:** `to-do-case-studies` provides a rich set of components for list, detail, card, hero, metrics, highlights, related, navigation, sidebar, header, CTA, and breadcrumbs. Includes `simplified-case-study-detail.tsx`.
-*   **Current Components:** `components/case-studies` has `case-study-list.tsx`, `case-study-card.tsx`, and `related-case-studies.tsx`.
-*   **Content:** Case study data resides in Markdown files within `content/case-studies`.
+* **Problem:** Build error `TypeError: null is not an object (evaluating 'ReactSharedInternals.H.useContext')` occurring during the static generation of error pages (specifically `/404`).
+* **Cause:** Client-side components with React hooks being incorrectly processed during server-side rendering.
+* **Complication:** App Router's strict separation between Server and Client Components.
 
 **Strategy:**
-1.  **Integrate New Components:**
-    *   Replace/Refactor `components/case-studies/case-study-list.tsx` and `case-study-card.tsx` using the versions from `to-do-case-studies`.
-    *   Implement the case study detail view using `to-do-case-studies/simplified-case-study-detail.tsx` and its supporting components (`hero`, `metrics`, `highlights`, etc.).
-    *   Replace `components/case-studies/related-case-studies.tsx` with `to-do-case-studies/case-study-related.tsx`.
-    *   Integrate auxiliary components (`navigation`, `sidebar`, `header`, `cta`, `breadcrumb`, `section`) into the appropriate page layouts.
-2.  **Adapt Data Handling:**
-    *   Analyze the prop requirements of the new components from `to-do-case-studies`.
-    *   Ensure the data parsed from `content/case-studies/*.md` files matches the expected props. Modify Markdown frontmatter or data fetching/parsing logic as needed.
-3.  **Verify Routing:** Confirm application routes correctly point to the new list and detail pages/components.
-4.  **Apply Styling:** Ensure consistent styling using the project's UI system.
+1. **Create proper client/server component boundary:**
+   * Create a client component wrapper for the `FramerErrorFix` component
+   * Use dynamic imports with `{ ssr: false }` in the client wrapper
+   * Ensure all client-side logic is properly isolated
+2. **Restore proper project build process:**
+   * Clean build cache and reinstall dependencies
+   * Verify build completes successfully
 
 **Implementation Progress:**
-1. ✅ Enhanced the `CaseStudy` interface in `lib/case-studies.ts` to support all the fields required by the new components
-2. ✅ Added `getCaseStudyNavigation` function to support the navigation between case studies
-3. ✅ Updated the sample case study Markdown with the additional frontmatter fields
-4. ✅ Implemented the `SimplifiedCaseStudyDetail` component for the case study detail page
-5. ✅ Created the enhanced `CaseStudyCard` component with domain-specific styling and animations
-6. ✅ Updated the `CaseStudyList` component with advanced filtering and sorting features
-7. ✅ Modified the case study detail page to use the new component structure
-8. ✅ Completely redesigned the case study detail page with sophisticated UI/UX
-9. ✅ Implemented advanced animations and micro-interactions using Framer Motion
-10. ✅ Added parallax effects, animated accents, and hover interactions for rich user experience
-11. 📝 Need to implement or enhance other components from `to-do-case-studies` like case-study-breadcrumb, case-study-metrics as standalone components if needed
-12. 📝 Consider implementing additional components like featured-case-studies for the homepage
+1. ✅ Created `src/components/FramerErrorFixClient.tsx` client wrapper component
+2. ✅ Used `next/dynamic` with `{ ssr: false }` option to prevent server-side rendering
+3. ✅ Updated layout to use the client wrapper component
+4. ✅ Cleared build cache and reinstalled dependencies
+5. ✅ Successfully fixed the build error
 
 **Next Steps:**
-*   Thoroughly test the new implementation, especially the domain filtering and navigation features
-*   Update any remaining case studies with the new frontmatter structure
-*   Add more case studies to demonstrate the full capabilities of the new components
-*   Consider performance optimization for the animations (if needed)
-*   Add keyboard navigation support for improved accessibility
+* Monitor for any other build errors
+* Consider documenting the client/server component boundary pattern for future reference
+
+---
+
+## Previous Task: Project Structure Reorganization
+
+**Goal:** Reorganize the project structure to reduce noise in the root directory by moving code into a src directory while maintaining proper functionality.
+
+**Analysis:**
+* **Original Structure:** Multiple directories at the root level including app/, components/, lib/, hooks/, styles/, and config/
+* **Target Structure:** Move code directories under src/ while keeping special directories like public/ and content/ at the root
+* **Requirements:** Update import paths and tsconfig.json to ensure the application continues to function
+
+**Strategy:**
+1. **Create src directory structure:**
+   * Move app/, components/, lib/, hooks/, styles/, and config/ into src/
+   * Keep public/ and content/ at root level
+2. **Update configuration:**
+   * Modify tsconfig.json paths to point to the new structure
+   * Create special path mapping for content directory
+3. **Fix import references:**
+   * Update any imports that might be affected by the restructuring
+   * Check for special cases like styles imports
+
+**Implementation Progress:**
+1. ✅ Created src directory
+2. ✅ Moved app/, components/, lib/, hooks/, styles/, and config/ into src/
+3. ✅ Updated tsconfig.json paths configuration
+4. ✅ Fixed import paths in layout.tsx and other files
+5. ✅ Verified build and development server work correctly
+6. ✅ Committed changes to the repository
+
+**Next Steps:**
+* Continue to monitor for any issues related to the restructuring
+* Consider adding documentation about the project structure
 
 ---
 
@@ -51,6 +72,7 @@
 - [x] Designing and implementing Case Studies feature
 - [x] Switched from npm to Bun for faster dependency management
 - [x] Enhanced case study detail page with sophisticated animations and interactions
+- [x] Reorganized project structure by moving code into src directory
 
 ## In Progress
 - [ ] Implementing core UI components
