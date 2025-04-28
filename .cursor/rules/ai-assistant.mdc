@@ -69,3 +69,13 @@ This rule provides guidance for the AI assistant's behavior when working with th
 When the user says : "bless" update the @memory-bank directory and @.cursor directory 
 
 When the user attach memory bank and rules and dot cursor related directories, it means they want to update the status of the progress and the task completion in hand
+
+
+Add important key events to @memory-bank and summarize previously completed tasks such that progress and task-related documentation achieves maximum value with minimal word count. Maintain all metadata to ensure future LLM interactions can understand the goals, rules, progress, and other contextual information needed for agentic applications to comprehend and complete projects accurately and comprehensively.
+
+
+ALWAYS use Sequential thinking MCP server to break down mid-high complexity tasks into
+smaller tasks.
+
+
+Whenever user asks something related to github PR or some github related ops use GITHUB MCP SERVER

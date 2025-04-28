@@ -1,6 +1,68 @@
 # Project Progress Tracker
 
-## Current Major Task: Minimal Viable Auth Implementation - ✅ COMPLETED
+## Current Major Task: Refactoring Case Study Detail Component - 🚧 IN PROGRESS
+
+**Goal:** Break down the large, monolithic case study detail component into smaller, focused components for better maintainability and code organization.
+
+**Analysis:**
+* **Current State:** The detail.tsx file (816 lines) is a large monolithic component handling multiple concerns
+* **Target State:** Multiple smaller components with single responsibilities in a logical directory structure
+* **Benefits:** Improved code maintainability, readability, and potential for component reuse
+
+**Strategy:**
+1. **Create Directory Structure:**
+   * Create a `detail` subdirectory under `src/components/case-studies/`
+   * Move logical sections into individual component files
+2. **Extract Core Components:**
+   * Extract the Hero section
+   * Extract Header/Actions section (breadcrumbs, share buttons)
+   * Extract Content sections (Challenge, Solution, Outcomes, etc.)
+   * Extract Sidebar components (Technologies, Timeline, Student Info)
+3. **Manage Shared State/Props:**
+   * Pass required data down to child components
+   * Keep shared style constants and utilities accessible
+4. **Preserve Animation Behavior:**
+   * Maintain all Framer Motion animations during refactoring
+   * Ensure client/server component boundaries are respected
+
+**Proposed Component Structure:**
+* `src/components/case-studies/detail.tsx` (Main wrapper)
+* `src/components/case-studies/detail/CaseStudyHero.tsx`
+* `src/components/case-studies/detail/CaseStudyHeaderActions.tsx`
+* `src/components/case-studies/detail/CaseStudyContent.tsx` (Main content column)
+* `src/components/case-studies/detail/KeyOutcomesSection.tsx`
+* `src/components/case-studies/detail/ContentSection.tsx` (Reusable section)
+* `src/components/case-studies/detail/MarkdownContent.tsx`
+* `src/components/case-studies/detail/MetricsSection.tsx`
+* `src/components/case-studies/detail/CtaSection.tsx`
+* `src/components/case-studies/detail/CaseStudySidebar.tsx` (Sidebar wrapper)
+* `src/components/case-studies/detail/TechnologiesSection.tsx`
+* `src/components/case-studies/detail/TimelineSection.tsx`
+* `src/components/case-studies/detail/StudentInfoSection.tsx`
+* `src/components/case-studies/detail/NavigationSection.tsx`
+* `src/components/case-studies/detail/SectionTitle.tsx` (Shared)
+* `src/components/case-studies/detail/constants.ts` (Shared)
+
+**Implementation Progress:**
+1. [x] Create new git branch for refactoring
+2. [x] Set up directory structure for new components
+3. [ ] Extract shared utilities (SectionTitle, domain constants)
+4. [ ] Extract Hero component
+5. [ ] Extract Header/Actions components
+6. [ ] Extract Sidebar components
+7. [ ] Extract Content section components
+8. [ ] Update main Detail component to use new components
+9. [ ] Test and verify functionality matches original
+10. [ ] Code review and PR
+
+**Key Considerations:**
+* Maintain "use client" directive for components using client-side features
+* Ensure consistent prop passing and types
+* Preserve all animations and interactive features
+* Keep component styling consistent with original
+* Document component responsibilities
+
+## Previous Task: Fix for Framer Motion Error in Next.js Build - ✅ COMPLETED
 
 **Goal:** Quickly implement essential Supabase authentication with a "move fast" approach.
 
@@ -257,4 +319,32 @@
 *   More detailed analytics integration.
 
 ## Blockers
-*   None currently identified. 
+*   None currently identified.
+
+# Progress Tracker: Case Study Component Refactoring
+
+## Completed Tasks
+
+- [x] Created new branch `refactor/case-study-components-new` for our work
+- [x] Created component directory structure for case studies
+- [x] Created the CaseStudyHero component
+- [x] Created the CaseStudyHeaderActions component
+- [x] Created the CaseStudySidebar component
+- [x] Created the KeyOutcomesSection component
+- [x] Created the ContentSection component
+- [x] Created the MetricsSection component
+- [x] Created the CtaSection component
+- [x] Created the MarkdownContent component
+- [x] Created the CaseStudyContent component
+- [x] Updated the main Detail component to use all new components
+
+## In Progress
+
+- [ ] Testing the refactored components
+- [ ] Preparing pull request to merge refactored components into main branch
+
+## Next Steps
+
+- Run all tests to ensure the refactored components work correctly
+- Create PR to merge into main branch
+- Address any review feedback 
