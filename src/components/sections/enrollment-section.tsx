@@ -61,7 +61,7 @@ export function EnrollmentSection() {
   }
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden isolate" id="enroll">
+    <section ref={ref} className="py-24 relative overflow-hidden isolate">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-white"></div>

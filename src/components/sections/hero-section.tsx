@@ -250,7 +250,7 @@ export function HeroSection() {
         {/* Hero Actions */}
         <motion.div className="flex flex-col sm:flex-row gap-5 mb-16" variants={forcedVisibleVariants}>
           <Button size="lg" asChild className="px-8 py-6 text-base font-medium relative overflow-hidden group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 border-none shadow-lg shadow-primary/20">
-            <Link href="#enroll">
+            <Link href="/enroll">
               <span className="relative z-10 flex items-center">
                 Apply Now - 15 Spots Left <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>

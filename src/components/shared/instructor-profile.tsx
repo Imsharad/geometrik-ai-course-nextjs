@@ -100,7 +100,7 @@ export function InstructorProfile({ instructor, variants, showDetails = true }: 
 
         <div className="mt-8">
           <Button asChild>
-            <Link href="#enroll">Learn From {instructor.name.split(" ")[0]}</Link>
+            <Link href="/enroll">Learn From {instructor.name.split(" ")[0]}</Link>
           </Button>
         </div>
       </motion.div>

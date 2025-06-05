@@ -229,7 +229,7 @@ export function ValueProposition({ variant, variants }: ValuePropositionProps) {
             </li>
           </ul>
           <Button asChild size="sm">
-            <Link href="#enroll">Start Your Journey</Link>
+            <Link href="/enroll">Start Your Journey</Link>
           </Button>
         </TabsContent>
 
@@ -254,7 +254,7 @@ export function ValueProposition({ variant, variants }: ValuePropositionProps) {
             </li>
           </ul>
           <Button asChild size="sm">
-            <Link href="#enroll">Enhance Your Skills</Link>
+            <Link href="/enroll">Enhance Your Skills</Link>
           </Button>
         </TabsContent>
 
@@ -279,7 +279,7 @@ export function ValueProposition({ variant, variants }: ValuePropositionProps) {
             </li>
           </ul>
           <Button asChild size="sm">
-            <Link href="#enroll">Perfect Your Expertise</Link>
+            <Link href="/enroll">Perfect Your Expertise</Link>
           </Button>
         </TabsContent>
       </Tabs>

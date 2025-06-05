@@ -59,6 +59,7 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
         ))}
 
       {/* Original Markdown content */}
+
       {caseStudy.content && (
         <MarkdownContent content={caseStudy.content} />
       )}
