@@ -43,6 +43,7 @@
 * ✅ Maintained all existing functionality and user experience
 * ✅ Added professional instructor profile picture
 * ✅ Zero functionality regression during refactoring
+* ✅ **Learned Vercel deployment requires manual environment variable setup**
 
 **Final State:**
 * Instructor page fully functional with dynamic YAML data loading
@@ -50,6 +51,12 @@
 * All interactive features (tabs, animations, contact links) working
 * Responsive design and animations preserved
 * Proper client/server component boundaries respected
+
+**Deployment Learning:**
+* **Vercel Environment Variables:** Local `.env.local` files are not automatically uploaded to Vercel
+* **Manual Setup Required:** Must use `vercel env add VARIABLE_NAME` CLI commands for each environment
+* **Environment Selection:** Need to add variables separately for Preview, Production, and Development environments
+* **Supabase Integration:** Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` required for deployment
 
 ---
 
@@ -279,6 +286,7 @@
 - Bun provides much faster package installation and better dependency resolution than npm
 - Using framer-motion's useScroll, useTransform and useSpring hooks creates natural-feeling animations
 - Custom section title components with animated accents create a more premium feel
+- **Vercel Deployment Environment Variables:** Local `.env.local` files are NOT automatically uploaded to Vercel deployments. Must manually add each environment variable using `vercel env add VARIABLE_NAME` CLI commands for Preview, Production, and Development environments separately. This is especially critical for Supabase integration requiring `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 *This document should be updated regularly as tasks are completed and new milestones are reached.*
 
