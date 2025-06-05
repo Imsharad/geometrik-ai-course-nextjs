@@ -120,7 +120,7 @@ export function PromptEngineeringSection() {
                 asChild
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-md group"
               >
-                <Link href="#enroll">
+                <Link href="/enroll">
                   <span className="flex items-center">
                     Enroll in This Module
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

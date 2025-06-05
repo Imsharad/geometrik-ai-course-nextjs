@@ -1,0 +1,92 @@
+cv:
+  name: Sharad Jain
+  location: Bengaluru, India
+  email: sharadsfo@gmail.com
+  phone: +91 7999024306
+  website: https://sharadja.in
+  social_networks:
+    - network: LinkedIn
+      username: sharadjain4
+    - network: GitHub
+      username: Imsharad
+  sections:
+    professional_summary:
+      - AI Engineer and Data Scientist specializing in enterprise-scale generative AI, NLP, and advanced analytics. Expertise in LLM optimization, ACRUE frameworks, and complex SQL queries. Skilled in data engineering, ETL processes, and implementing data warehousing solutions. Proficient in leveraging SQL for in-depth data analysis and deriving actionable insights from large datasets.
+    professional_experience:
+      - company: Autoscreen.ai
+        position: Founder
+        location: Bengaluru
+        start_date: 2023-06
+        end_date: present
+        highlights:
+          - Architected Chain-of-Thought query generation system achieving 99.2% syntax accuracy (aligned with RAGatouille's ColBERT optimizations), leveraging metadata synchronization inspired by MindSQL's schema-aware approach
+          - Implemented SWE-agent inspired self-correction module reducing errors by 75%, integrating storm-like citation validation for audit trails
+          - Optimized 70B parameter LLM using DeepSeek-R1 compression techniques (40% latency reduction), validated against TinyZero's performance benchmarks
+          - Designed agent architecture combining mastra's observability with graphai's declarative workflows, improving query accuracy by 65%
+          - Built validation pipeline using Gorilla-style tool calling (8k+ API integrations), reducing manual verification by 90%
+      - company: withjoy.com
+        position: Sr. Data Engineer
+        location: San Francisco, CA
+        start_date: 2020-04
+        end_date: 2023-05
+        highlights:
+          - Spearheaded monthly cross-platform marketing analytics process, integrating data from Lumalytics, Google Analytics, and internal databases to track KPIs across web and mobile channels; implemented data reconciliation methods resulting in 95% accuracy in conversion reporting and enabling data-driven optimizations that improved channel performance by 20% YoY.
+          - Authored, tested, and ran Python DAGs in Airflow using various operators (Python, Bash, AWS, Postgres), building and observing data pipelines-as-code, reducing data team workload by over 60%.
+          - Developed ingestion, ETL, and reverse ETL pipelines in production using SQL queries and Python, improving data processing efficiency by 40%.
+          - Maintained data quality across the board, established single source of truth for canonical datasets, created data validation checks, integration tests, and unit tests, reducing data quality issues by 75%.
+          - Collected, identified, and categorized individual data points throughout the data pipeline; devised data tracking plans with product and engineering teams, improving data analysis accuracy by 30%.
+          - Tracked, quantified, and measured AARRR funnel parts; built canonical dashboards for marketing teams, including marketing mix models and attribution models, increasing marketing ROI by 25%.
+          - Collaborated with marketing team to measure campaign performance, ROAS, Customer Lifetime Value, and Cost of Acquisition, leading to a 20% improvement in campaign effectiveness.
+          - Analyzed data and built funnels and cohort charts using SQL, Python, and Looker; used statistics and visuals to find and communicate insights, driving a 15% increase in data-driven decision making.
+          - Utilized Looker's LookML to create data visualizations and dashboards, including funnels, aha-moment analysis, churn analysis, and retention analysis, improving user retention by 15%.
+          - Worked as a data strategist, collaborating with business leaders to evaluate areas of highest impact for data science, resulting in 3 new high-impact data initiatives.
+      - company: Meta (Facebook)
+        position: Data Scientist
+        location: Menlo Park, CA
+        start_date: 2018-10
+        end_date: 2020-04
+        highlights:
+          - Implemented MLOps practices for enterprise engineering team, including automated CI/CD pipelines, version control for models and data, and continuous monitoring, resulting in 40% faster model deployment and 30% reduction in production issues.
+          - Engineered scalable data pipelines using Apache Spark and Airflow, processing 10TB+ daily data for ML model training, improving data freshness by 50% and model accuracy by 15%.
+          - Optimized user onboarding process through A/B testing and funnel analysis, reducing average activation time from 7 days to 2 days and improving new user retention by 30%.
+          - Implemented automated anomaly detection system for data quality, reducing signal-to-noise ratio by 35% month-over-month and saving 40 hours of manual review time weekly.
+          - Designed and implemented a feature store for centralized feature management, reducing feature engineering time by 60% and improving model reproducibility across teams.
+          - Led the migration of ML workflows to Kubernetes, resulting in 50% improved resource utilization and enabling seamless scaling of model training jobs.
+          - Established automated model performance monitoring and retraining pipelines, reducing model decay and maintaining a 95% SLA for prediction accuracy.
+      - company: Autodesk
+        position: Data Scientist
+        location: San Francisco, CA
+        start_date: 2017-10
+        end_date: 2018-06
+        highlights:
+          - Implemented machine learning models to predict transient infrastructure failures.
+          - Improved prediction accuracy of transient failures by 15% through feature engineering and model optimization.
+          - Built AWS Quicksight dashboard for business insights and interfaced with Data Platform Team in predictive maintenance.
+      - company: Tata Consultancy Services
+        position: Data Analyst
+        location: Pune, India
+        start_date: 2015-10
+        end_date: 2017-06
+        highlights:
+          - Designed ETL mappings using IBM Infosphere.
+          - Performed Impact Analysis on existing mappings and provided iterative feedback.
+          - Mastered multiple data repositories and devised efficient data extraction procedures.
+          - Communicated complex modeling concepts to business-facing clients effectively.
+    education:
+      - institution: University of California Davis, Graduate School of Management
+        area: Business Analytics
+        degree: MS
+        location: San Francisco, US
+        start_date: 2017-09
+        end_date: 2018-12
+      - institution: University Institute of Technology, Bhopal
+        area: Mechanical Engineering
+        degree: BS
+        location: Bhopal, India
+        start_date: 2011-08
+        end_date: 2015-05
+    technologies:
+      - label: Programming Languages
+        details: Python, SQL, R, Java
+      - label: Technologies
+        details: AWS, Airflow, Spark, Hadoop, Tableau, Git

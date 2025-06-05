@@ -150,7 +150,7 @@ export function PricingSection({
                     className="w-full transition-all duration-300"
                     variant={plan.mostPopular ? "default" : "outline"}
                   >
-                    <Link href="#enroll">{plan.ctaText}</Link>
+                    <Link href="/enroll">{plan.ctaText}</Link>
                   </Button>
                 </CardFooter>
               </Card>

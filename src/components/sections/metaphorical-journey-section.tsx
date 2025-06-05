@@ -574,7 +574,7 @@ export function MetaphoricalJourneySection() {
                       className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-none shadow-lg shadow-purple-900/20"
                       onClick={() => setHasInteracted(true)}
                     >
-                      <Link href="#enroll">
+                      <Link href="/enroll">
                         Begin Your Transformation
                         <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Link>

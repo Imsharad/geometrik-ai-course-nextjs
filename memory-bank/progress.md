@@ -1,6 +1,128 @@
 # Project Progress Tracker
 
-## Current Major Task: Minimal Viable Auth Implementation - ✅ COMPLETED
+## Previous Task: Instructor Section Bug Fix & Enhancement - ✅ COMPLETED
+
+**Goal:** Debug and fix critical fs module error in instructor section component and enhance with real profile picture.
+
+**Analysis:**
+* **Problem:** Client component trying to import Node.js `fs` module causing "Module not found: Can't resolve 'fs'" error
+* **Root Cause:** Violation of Next.js client/server component boundaries - server-side file operations in client component
+* **Impact:** Instructor page completely broken, unable to load
+
+**Strategy:**
+1. **Proper Component Architecture:**
+   * Split monolithic component into server and client components
+   * Server component handles YAML file reading and data processing
+   * Client component handles interactivity and animations
+2. **Maintain All Features:**
+   * Preserve Framer Motion animations
+   * Keep all interactive tabs and UI elements
+   * Maintain responsive design and styling
+3. **Add Real Profile Picture:**
+   * Replace placeholder with actual instructor photo
+   * Fine-tune image positioning for optimal display
+
+**Implementation Progress:**
+1. ✅ **Install missing dependencies:** Added @types/js-yaml for TypeScript support
+2. ✅ **Create client component:** Built `instructor-client.tsx` with all interactive features
+3. ✅ **Transform server component:** Converted `instructor-section.tsx` to server component for YAML processing
+4. ✅ **Data pipeline:** Established proper data flow from server to client components
+5. ✅ **Profile picture integration:** Added real instructor photo at `/images/instructor/main.jpeg`
+6. ✅ **Image positioning optimization:** Fine-tuned object positioning (center 5%) for perfect framing
+7. ✅ **Testing & verification:** Confirmed all functionality works including animations, tabs, and data display
+
+**Technical Details:**
+* **Server Component:** Handles fs.readFileSync, yaml.load, and data transformation
+* **Client Component:** Manages useState, useRef, useEffect, and Framer Motion animations
+* **Type Safety:** Proper TypeScript interfaces for data flow between components
+* **Image Optimization:** Custom object-position styling for profile photo cropping
+
+**Key Achievements:**
+* ✅ Resolved critical build error blocking instructor page
+* ✅ Implemented proper Next.js App Router architecture patterns
+* ✅ Maintained all existing functionality and user experience
+* ✅ Added professional instructor profile picture
+* ✅ Zero functionality regression during refactoring
+* ✅ **Learned Vercel deployment requires manual environment variable setup**
+
+**Final State:**
+* Instructor page fully functional with dynamic YAML data loading
+* Real profile picture properly positioned and displayed
+* All interactive features (tabs, animations, contact links) working
+* Responsive design and animations preserved
+* Proper client/server component boundaries respected
+
+**Deployment Learning:**
+* **Vercel Environment Variables:** Local `.env.local` files are not automatically uploaded to Vercel
+* **Manual Setup Required:** Must use `vercel env add VARIABLE_NAME` CLI commands for each environment
+* **Environment Selection:** Need to add variables separately for Preview, Production, and Development environments
+* **Supabase Integration:** Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` required for deployment
+
+---
+
+## Current Major Task: Refactoring Case Study Detail Component - 🚧 IN PROGRESS
+
+**Goal:** Break down the large, monolithic case study detail component into smaller, focused components for better maintainability and code organization.
+
+**Analysis:**
+* **Current State:** The detail.tsx file (816 lines) is a large monolithic component handling multiple concerns
+* **Target State:** Multiple smaller components with single responsibilities in a logical directory structure
+* **Benefits:** Improved code maintainability, readability, and potential for component reuse
+
+**Strategy:**
+1. **Create Directory Structure:**
+   * Create a `detail` subdirectory under `src/components/case-studies/`
+   * Move logical sections into individual component files
+2. **Extract Core Components:**
+   * Extract the Hero section
+   * Extract Header/Actions section (breadcrumbs, share buttons)
+   * Extract Content sections (Challenge, Solution, Outcomes, etc.)
+   * Extract Sidebar components (Technologies, Timeline, Student Info)
+3. **Manage Shared State/Props:**
+   * Pass required data down to child components
+   * Keep shared style constants and utilities accessible
+4. **Preserve Animation Behavior:**
+   * Maintain all Framer Motion animations during refactoring
+   * Ensure client/server component boundaries are respected
+
+**Proposed Component Structure:**
+* `src/components/case-studies/detail.tsx` (Main wrapper)
+* `src/components/case-studies/detail/CaseStudyHero.tsx`
+* `src/components/case-studies/detail/CaseStudyHeaderActions.tsx`
+* `src/components/case-studies/detail/CaseStudyContent.tsx` (Main content column)
+* `src/components/case-studies/detail/KeyOutcomesSection.tsx`
+* `src/components/case-studies/detail/ContentSection.tsx` (Reusable section)
+* `src/components/case-studies/detail/MarkdownContent.tsx`
+* `src/components/case-studies/detail/MetricsSection.tsx`
+* `src/components/case-studies/detail/CtaSection.tsx`
+* `src/components/case-studies/detail/CaseStudySidebar.tsx` (Sidebar wrapper)
+* `src/components/case-studies/detail/TechnologiesSection.tsx`
+* `src/components/case-studies/detail/TimelineSection.tsx`
+* `src/components/case-studies/detail/StudentInfoSection.tsx`
+* `src/components/case-studies/detail/NavigationSection.tsx`
+* `src/components/case-studies/detail/SectionTitle.tsx` (Shared)
+* `src/components/case-studies/detail/constants.ts` (Shared)
+
+**Implementation Progress:**
+1. [x] Create new git branch for refactoring
+2. [x] Set up directory structure for new components
+3. [ ] Extract shared utilities (SectionTitle, domain constants)
+4. [ ] Extract Hero component
+5. [ ] Extract Header/Actions components
+6. [ ] Extract Sidebar components
+7. [ ] Extract Content section components
+8. [ ] Update main Detail component to use new components
+9. [ ] Test and verify functionality matches original
+10. [ ] Code review and PR
+
+**Key Considerations:**
+* Maintain "use client" directive for components using client-side features
+* Ensure consistent prop passing and types
+* Preserve all animations and interactive features
+* Keep component styling consistent with original
+* Document component responsibilities
+
+## Previous Task: Fix for Framer Motion Error in Next.js Build - ✅ COMPLETED
 
 **Goal:** Quickly implement essential Supabase authentication with a "move fast" approach.
 
@@ -101,6 +223,9 @@
 - [x] Switched from npm to Bun for faster dependency management
 - [x] Enhanced case study detail page with sophisticated animations and interactions
 - [x] Reorganized project structure by moving code into src directory
+- [x] **Fixed critical Instructor Section bug - fs module error resolution**
+- [x] **Implemented proper Next.js client/server component architecture**
+- [x] **Added real instructor profile picture with optimized positioning**
 
 ## In Progress
 - [ ] Implementing core UI components
@@ -161,6 +286,7 @@
 - Bun provides much faster package installation and better dependency resolution than npm
 - Using framer-motion's useScroll, useTransform and useSpring hooks creates natural-feeling animations
 - Custom section title components with animated accents create a more premium feel
+- **Vercel Deployment Environment Variables:** Local `.env.local` files are NOT automatically uploaded to Vercel deployments. Must manually add each environment variable using `vercel env add VARIABLE_NAME` CLI commands for Preview, Production, and Development environments separately. This is especially critical for Supabase integration requiring `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 *This document should be updated regularly as tasks are completed and new milestones are reached.*
 
@@ -257,6 +383,32 @@
 *   More detailed analytics integration.
 
 ## Blockers
-*   **Supabase Authentication "Failed to fetch" error**: Cannot complete signup or login due to a network request failure. Need to inspect browser network logs for details.
+*   None currently identified.
 
-   None currently identified. 
+# Progress Tracker: Case Study Component Refactoring
+
+## Completed Tasks
+
+- [x] Created new branch `refactor/case-study-components-new` for our work
+- [x] Created component directory structure for case studies
+- [x] Created the CaseStudyHero component
+- [x] Created the CaseStudyHeaderActions component
+- [x] Created the CaseStudySidebar component
+- [x] Created the KeyOutcomesSection component
+- [x] Created the ContentSection component
+- [x] Created the MetricsSection component
+- [x] Created the CtaSection component
+- [x] Created the MarkdownContent component
+- [x] Created the CaseStudyContent component
+- [x] Updated the main Detail component to use all new components
+
+## In Progress
+
+- [ ] Testing the refactored components
+- [ ] Preparing pull request to merge refactored components into main branch
+
+## Next Steps
+
+- Run all tests to ensure the refactored components work correctly
+- Create PR to merge into main branch
+- Address any review feedback 

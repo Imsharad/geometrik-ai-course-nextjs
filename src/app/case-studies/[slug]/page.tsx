@@ -12,7 +12,7 @@ interface CaseStudyPageProps {
 
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
   try {
-    const caseStudy = await getCaseStudyBySlug(params.slug);
+    const caseStudy = await getCaseStudyBySlug((await params).slug);
     
     return {
       title: `${caseStudy.title} | Geometrik AI Course Case Study`,
@@ -36,8 +36,8 @@ export async function generateStaticParams() {
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   try {
-    const caseStudy = await getCaseStudyBySlug(params.slug);
-    const navigation = await getCaseStudyNavigation(params.slug);
+    const caseStudy = await getCaseStudyBySlug((await params).slug);
+    const navigation = await getCaseStudyNavigation((await params).slug);
     
     return (
       <Detail caseStudy={caseStudy} navigation={navigation} />
