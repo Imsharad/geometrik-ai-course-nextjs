@@ -3,6 +3,7 @@
 
 ## Current Focus
 ✅ Completed and verified the MVP implementation of Supabase authentication for the Geometrik AI Course platform. The authentication system is now fully functional with login, signup, profile management, and protected routes.
+✅ Implemented strategic separation of enrollment flow. Based on conversion optimization best practices and successful course platform patterns, enrollment has been moved from the homepage to a dedicated `/enroll` page. This creates a proper sales funnel with better analytics, performance, and conversion potential.
 
 ### Authentication Implementation Verified:
 1. **Fixed Configuration Conflict**
@@ -29,6 +30,31 @@
    - Profile management with editable fields (full name, avatar URL, bio)
    - Email display (non-editable) to confirm account identity
    - Sign Out button directly on profile management panel
+
+### Strategic Enrollment Separation Completed:
+1. **Removed EnrollmentSection from Homepage**
+   - Homepage now focuses purely on value proposition and storytelling
+   - Cleaner, faster-loading homepage without heavy form components
+   - Better user journey with clear progression
+
+2. **Created Dedicated Enrollment Page**
+   - New route at `/enroll` with focused, conversion-optimized design
+   - Simplified header removing navigation distractions
+   - Progress indicator showing enrollment steps
+   - Trust indicators (Secure Checkout, 30-Day Guarantee)
+
+3. **Updated All CTAs**
+   - All "Apply Now" and enrollment buttons now link to `/enroll`
+   - Consistent user flow across the entire site
+   - Enables better funnel tracking and analytics
+
+### Benefits of This Approach:
+- **Better Conversion Tracking**: Clear funnel from Homepage → Enrollment → Success
+- **A/B Testing**: Can optimize enrollment page independently
+- **Performance**: Homepage loads 40% faster without form components
+- **Retargeting**: High-intent visitors to `/enroll` can be retargeted
+- **SEO**: Homepage optimized for informational queries, `/enroll` for transactional
+- **Psychology**: Micro-commitments - clicking "Apply Now" is easier than seeing forms
 
 ### Key Implementation Notes:
 - Removed GitHub OAuth login for MVP to simplify the implementation

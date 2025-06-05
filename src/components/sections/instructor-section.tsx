@@ -291,7 +291,7 @@ export function InstructorSection() {
                 asChild
                 className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-2px]"
               >
-                <Link href="#enroll">
+                <Link href="/enroll">
                   <span className="flex items-center text-base font-medium">
                     Learn with Dr. Johnson
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
