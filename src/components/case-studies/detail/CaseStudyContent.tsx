@@ -59,9 +59,10 @@ export function CaseStudyContent({ caseStudy }: CaseStudyContentProps) {
         ))}
 
       {/* Original Markdown content */}
-      {/* caseStudy.content && (
+
+      {caseStudy.content && (
         <MarkdownContent content={caseStudy.content} />
-      ) */}
+      )}
 
       {/* Metrics Section */}
       {caseStudy.metrics && caseStudy.metrics.length > 0 && (
