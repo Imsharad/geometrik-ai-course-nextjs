@@ -6,15 +6,95 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowRight, Award, BookOpen, Briefcase, Users, Quote, ExternalLink } from "lucide-react"
+import { ArrowRight, Award, BookOpen, Briefcase, Users, Quote, ExternalLink, Mail, Phone, Linkedin, Github, Globe } from "lucide-react"
 import { cn } from "@/lib/utils"
+import fs from "fs"
+import yaml from "js-yaml"
+import path from "path"
+
+// Define types for the resume data
+interface SocialNetwork {
+  network: string
+  username: string
+}
+
+interface ProfessionalSummary {
+  summary: string[]
+}
+
+interface ProfessionalExperience {
+  company: string
+  position: string
+  location: string
+  start_date: string
+  end_date?: string
+  highlights: string[]
+}
+
+interface EducationEntry {
+  institution: string
+  area: string
+  degree: string
+  location: string
+  start_date: string
+  end_date: string
+}
+
+interface Technology {
+  label: string
+  details: string
+}
+
+interface CVData {
+  name: string
+  location: string
+  email: string
+  phone: string
+  website: string
+  social_networks: SocialNetwork[]
+  sections: {
+    professional_summary: string[]
+    professional_experience: ProfessionalExperience[]
+    education: EducationEntry[]
+    technologies: Technology[]
+  }
+}
+
+// Helper function to format dates
+const formatDateRange = (startDate: string, endDate?: string) => {
+  const start = new Date(startDate)
+  const end = endDate && endDate !== "present" ? new Date(endDate) : null
+  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short" }
+
+  const startDateFormatted = start.toLocaleDateString("en-US", options)
+  if (endDate === "present") {
+    return `${startDateFormatted} - Present`
+  }
+  if (end) {
+    const endDateFormatted = end.toLocaleDateString("en-US", options)
+    return `${startDateFormatted} - ${endDateFormatted}`
+  }
+  return startDateFormatted
+}
+
 
 export function InstructorSection() {
   const [activeTab, setActiveTab] = useState("about")
   const [isInView, setIsInView] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const [instructorData, setInstructorData] = useState<CVData | null>(null)
 
   useEffect(() => {
+    // Load YAML data
+    try {
+      const yamlPath = path.join(process.cwd(), "resume.yaml")
+      const fileContents = fs.readFileSync(yamlPath, "utf8")
+      const data = yaml.load(fileContents) as { cv: CVData }
+      setInstructorData(data.cv)
+    } catch (error) {
+      console.error("Error loading or parsing resume.yaml:", error)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting)
@@ -32,6 +112,39 @@ export function InstructorSection() {
       }
     }
   }, [])
+
+  if (!instructorData) {
+    // You might want to render a loading state or a fallback UI
+    return <div>Loading instructor data...</div>
+  }
+
+  // Map YAML data to component structure
+  const instructor = {
+    name: instructorData.name,
+    title: instructorData.sections.professional_experience[0]?.position || "Instructor",
+    image: "/placeholder-user.jpg", // Using placeholder as specified
+    bio: instructorData.sections.professional_summary.join("\n\n"),
+    experience: instructorData.sections.professional_experience.map(exp => ({
+      company: exp.company,
+      role: exp.position,
+      period: formatDateRange(exp.start_date, exp.end_date),
+      description: exp.highlights.join("\n- "),
+      location: exp.location,
+    })),
+    education: instructorData.sections.education.map(edu => ({
+      institution: edu.institution,
+      degree: `${edu.degree} in ${edu.area}`,
+      period: formatDateRange(edu.start_date, edu.end_date),
+      location: edu.location,
+    })),
+    technologies: instructorData.sections.technologies,
+    contact: {
+      email: instructorData.email,
+      phone: instructorData.phone,
+      website: instructorData.website,
+      social_networks: instructorData.social_networks,
+    },
+  }
 
   // Animation variants
   const containerVariants = {
@@ -51,62 +164,6 @@ export function InstructorSection() {
       y: 0,
       opacity: 1,
       transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-    },
-  }
-
-  // Instructor data
-  const instructor = {
-    name: "Dr. Alex Johnson",
-    title: "Lead Instructor",
-    image:
-      "https://sjc.microlink.io/d-pr2VshFerH5ry8gFOoN4WXbArMfrk7trM0vi6XKe9Ucj-4tggEM-FFv89fsDK1xpbUXtCzNrMD0sCm0KxxuA.jpeg",
-    bio: "A renowned expert with over 15 years of experience in the field. Alex brings real-world insights and practical knowledge to every lesson, making complex concepts accessible and applicable.",
-    stats: [
-      { value: "15k+", label: "Students", icon: Users, color: "bg-blue-50/80 text-blue-600 border-blue-100" },
-      { value: "12", label: "Courses", icon: BookOpen, color: "bg-emerald-50/80 text-emerald-600 border-emerald-100" },
-      { value: "15+", label: "Years", icon: Briefcase, color: "bg-amber-50/80 text-amber-600 border-amber-100" },
-      { value: "6", label: "Awards", icon: Award, color: "bg-violet-50/80 text-violet-600 border-violet-100" },
-    ],
-    experience: [
-      {
-        company: "TechCorp",
-        role: "Senior Technical Lead",
-        period: "2018-2023",
-        description:
-          "Led implementation of enterprise-level solutions for global clients, increasing system performance by 40% for Fortune 100 companies.",
-      },
-      {
-        company: "InnovateX",
-        role: "Principal Consultant",
-        period: "2014-2018",
-        description:
-          "Advised Fortune 500 companies on strategic implementation, developing optimization frameworks adopted by 30+ organizations.",
-      },
-    ],
-    publications: [
-      {
-        title: "Advanced Implementation Strategies",
-        publisher: "Tech Publications",
-        year: 2022,
-        description: "Cited in 45+ industry papers and featured at international conferences.",
-        link: "#",
-      },
-      {
-        title: "Optimization Techniques for Modern Applications",
-        publisher: "Industry Journal",
-        year: 2021,
-        description: "Featured in 3 international conferences and adopted by leading universities.",
-        link: "#",
-      },
-    ],
-    teaching:
-      "My teaching approach focuses on practical application backed by solid theory. I believe in learning by doing, with real-world examples that demonstrate how concepts apply in actual scenarios.",
-    testimonial: {
-      quote:
-        "Dr. Johnson's teaching style made complex concepts understandable and practical. Her mentorship has been invaluable to my career growth.",
-      name: "Jennifer K.",
-      role: "Senior Developer",
-      company: "EnterpriseX",
     },
   }
 
@@ -151,48 +208,50 @@ export function InstructorSection() {
               <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-blue-200 rounded-tl-xl"></div>
               <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-blue-200 rounded-br-xl"></div>
             </motion.div>
-
-            {/* Stats grid */}
-            <motion.div className="grid grid-cols-2 gap-5" variants={itemVariants}>
-              {instructor.stats.map((stat, index) => {
-                const StatIcon = stat.icon
-                return (
-                  <motion.div
-                    key={index}
-                    className={cn(
-                      "flex flex-col items-center justify-center p-5 rounded-xl border backdrop-blur-sm transition-all duration-300",
-                      stat.color,
-                      "hover:shadow-md hover:-translate-y-1",
-                    )}
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <StatIcon className="h-5 w-5 mb-3" />
-                    <span className="text-2xl font-semibold">{stat.value}</span>
-                    <span className="text-xs text-gray-600 mt-1">{stat.label}</span>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-
-            {/* Testimonial */}
-            <motion.div
-              className="p-7 bg-white border border-gray-100 rounded-xl shadow-sm relative"
-              variants={itemVariants}
-              whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05)" }}
-            >
-              <div className="absolute -top-3 -left-3 text-blue-500 bg-white rounded-full p-1 shadow-sm">
-                <Quote className="h-6 w-6" />
-              </div>
-              <p className="text-gray-700 italic mb-5 text-base leading-relaxed">"{instructor.testimonial.quote}"</p>
-              <div className="flex items-center">
-                <div className="w-10 h-0.5 bg-gradient-to-r from-blue-300 to-indigo-300 mr-4"></div>
-                <div>
-                  <p className="font-medium text-gray-800">{instructor.testimonial.name}</p>
-                  <p className="text-xs text-gray-500">
-                    {instructor.testimonial.role}, {instructor.testimonial.company}
-                  </p>
-                </div>
+            {/* Contact Information */}
+            <motion.div variants={itemVariants} className="p-6 bg-white border border-gray-100 rounded-xl shadow-sm">
+              <h4 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h4>
+              <div className="space-y-3">
+                {instructor.contact.email && (
+                  <div className="flex items-center text-gray-700">
+                    <Mail className="h-4 w-4 mr-3 text-blue-600" />
+                    <a href={`mailto:${instructor.contact.email}`} className="hover:text-blue-700">{instructor.contact.email}</a>
+                  </div>
+                )}
+                {instructor.contact.phone && (
+                  <div className="flex items-center text-gray-700">
+                    <Phone className="h-4 w-4 mr-3 text-blue-600" />
+                    <span>{instructor.contact.phone}</span>
+                  </div>
+                )}
+                {instructor.contact.website && (
+                  <div className="flex items-center text-gray-700">
+                    <Globe className="h-4 w-4 mr-3 text-blue-600" />
+                    <a href={instructor.contact.website} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700">
+                      {instructor.contact.website}
+                    </a>
+                  </div>
+                )}
+                {instructor.contact.social_networks.map(social => (
+                  <div key={social.network} className="flex items-center text-gray-700">
+                    {social.network === "LinkedIn" && <Linkedin className="h-4 w-4 mr-3 text-blue-600" />}
+                    {social.network === "GitHub" && <Github className="h-4 w-4 mr-3 text-blue-600" />}
+                    <a
+                      href={
+                        social.network === "LinkedIn"
+                          ? `https://linkedin.com/in/${social.username}`
+                          : social.network === "GitHub"
+                          ? `https://github.com/${social.username}`
+                          : '#'
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-blue-700"
+                    >
+                      {social.username} ({social.network})
+                    </a>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -203,6 +262,7 @@ export function InstructorSection() {
             <motion.div variants={itemVariants}>
               <h3 className="text-2xl font-semibold text-gray-900">{instructor.name}</h3>
               <p className="text-blue-600 font-medium">{instructor.title}</p>
+              <p className="text-sm text-gray-600 mt-1">{instructorData.location}</p>
             </motion.div>
 
             {/* Tabs */}
@@ -222,18 +282,28 @@ export function InstructorSection() {
                     Experience
                   </TabsTrigger>
                   <TabsTrigger
-                    value="publications"
+                    value="education"
                     className="data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-md text-sm font-medium transition-all"
                   >
-                    Publications
+                    Education
                   </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="about" className="mt-8 space-y-8 animate-in fade-in-50 duration-300">
-                  <p className="text-gray-700 text-base leading-relaxed">{instructor.bio}</p>
-                  <div className="p-6 bg-blue-50/80 rounded-xl border border-blue-100/80 backdrop-blur-sm">
-                    <h4 className="text-blue-800 font-medium mb-4 text-base">Teaching Philosophy</h4>
-                    <p className="text-gray-700 text-base leading-relaxed">{instructor.teaching}</p>
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-800 mb-3">About Me</h4>
+                    <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line">{instructor.bio}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-gray-800 mb-4">Technologies</h4>
+                    <div className="space-y-4">
+                      {instructor.technologies.map((tech, index) => (
+                        <div key={index} className="p-4 bg-blue-50/80 rounded-lg border border-blue-100/80">
+                          <h5 className="font-medium text-blue-800">{tech.label}</h5>
+                          <p className="text-sm text-gray-700">{tech.details}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </TabsContent>
 
@@ -244,41 +314,44 @@ export function InstructorSection() {
                       className="p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
                       whileHover={{ y: -5 }}
                     >
-                      <div className="flex justify-between items-start mb-4">
+                      <div className="flex justify-between items-start mb-2">
                         <div>
                           <h4 className="text-gray-900 font-medium text-base">{exp.company}</h4>
                           <p className="text-blue-600 text-sm">{exp.role}</p>
+                          <p className="text-xs text-gray-500">{exp.location}</p>
                         </div>
-                        <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
+                        <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium whitespace-nowrap">
                           {exp.period}
                         </span>
                       </div>
-                      <p className="text-gray-700 text-base leading-relaxed">{exp.description}</p>
+                      {exp.description && (
+                        <ul className="list-disc list-inside text-gray-700 text-sm leading-relaxed space-y-1 mt-3">
+                          {exp.description.split('\n- ').map((highlight, i) => (
+                            highlight && <li key={i}>{highlight.replace(/^- /,'')}</li>
+                          ))}
+                        </ul>
+                      )}
                     </motion.div>
                   ))}
                 </TabsContent>
 
-                <TabsContent value="publications" className="mt-8 space-y-6 animate-in fade-in-50 duration-300">
-                  {instructor.publications.map((pub, index) => (
+                <TabsContent value="education" className="mt-8 space-y-6 animate-in fade-in-50 duration-300">
+                  {instructor.education.map((edu, index) => (
                     <motion.div
                       key={index}
                       className="p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
                       whileHover={{ y: -5 }}
                     >
-                      <div className="flex justify-between items-start mb-4">
-                        <h4 className="text-gray-900 font-medium text-base">{pub.title}</h4>
-                        <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium">
-                          {pub.year}
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="text-gray-900 font-medium text-base">{edu.institution}</h4>
+                          <p className="text-blue-600 text-sm">{edu.degree}</p>
+                          <p className="text-xs text-gray-500">{edu.location}</p>
+                        </div>
+                        <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full font-medium whitespace-nowrap">
+                          {edu.period}
                         </span>
                       </div>
-                      <p className="text-blue-600 text-sm mb-3">{pub.publisher}</p>
-                      <p className="text-gray-700 text-base leading-relaxed mb-4">{pub.description}</p>
-                      <Link
-                        href={pub.link}
-                        className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        View Publication <ExternalLink className="ml-1 h-3 w-3" />
-                      </Link>
                     </motion.div>
                   ))}
                 </TabsContent>
@@ -293,7 +366,7 @@ export function InstructorSection() {
               >
                 <Link href="#enroll">
                   <span className="flex items-center text-base font-medium">
-                    Learn with Dr. Johnson
+                    Learn with {instructor.name.split(' ')[0]}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
